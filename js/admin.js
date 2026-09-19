@@ -312,8 +312,8 @@
       {
         text: "In which country can you find this famous statue?",
         round: "photos", order: 1,
-        choices: ["Argentina", "Brazil", "Portugal", "Colombia"],
-        correctIndex: 1,
+        choices: ["Argentina", "Portugal", "Colombia", "Brazil"],
+        correctIndex: 3,
         mediaType: "photo", mediaUrl: "assets/images/places/Christ-redempteur-brezil.jpg",
         location: { city: "Rio de Janeiro", country: "Brazil", lat: -22.9519, lng: -43.2105 },
         funFact: "Christ the Redeemer stands 30 meters tall and was completed in 1931."
@@ -321,8 +321,8 @@
       {
         text: "This flaming crater is known as the 'Door to Hell'. Where is it?",
         round: "photos", order: 2,
-        choices: ["Kazakhstan", "Turkmenistan", "Uzbekistan", "Iran"],
-        correctIndex: 1,
+        choices: ["Turkmenistan", "Kazakhstan", "Uzbekistan", "Iran"],
+        correctIndex: 0,
         mediaType: "photo", mediaUrl: "assets/images/places/laPorteEnferDarvazaTurkenmistan.png",
         location: { city: "Darvaza", country: "Turkmenistan", lat: 40.2526, lng: 58.4397 },
         funFact: "The Darvaza gas crater has been burning continuously since 1971."
@@ -339,8 +339,8 @@
       {
         text: "This iconic mountain is a symbol of which country?",
         round: "photos", order: 4,
-        choices: ["South Korea", "China", "Japan", "Nepal"],
-        correctIndex: 2,
+        choices: ["South Korea", "Japan", "China", "Nepal"],
+        correctIndex: 1,
         mediaType: "photo", mediaUrl: "assets/images/places/mont-fuji.jpg",
         location: { city: "Fujinomiya", country: "Japan", lat: 35.3606, lng: 138.7274 },
         funFact: "Mount Fuji is 3,776 meters high and last erupted in 1707."
@@ -348,8 +348,8 @@
       {
         text: "This colorful town with blue and white houses is in which country?",
         round: "photos", order: 5,
-        choices: ["Greece", "Morocco", "Tunisia", "Turkey"],
-        correctIndex: 2,
+        choices: ["Tunisia", "Morocco", "Greece", "Turkey"],
+        correctIndex: 0,
         mediaType: "photo", mediaUrl: "assets/images/places/sidiBouTunisia.jpg",
         location: { city: "Sidi Bou Said", country: "Tunisia", lat: 36.8687, lng: 10.3497 },
         funFact: "Sidi Bou Said's blue and white color scheme was established by a French baron in 1915."
@@ -358,8 +358,8 @@
       {
         text: "This burrito is a traditional dish from which country?",
         round: "food", order: 1,
-        choices: ["Spain", "Mexico", "Guatemala", "Cuba"],
-        correctIndex: 1,
+        choices: ["Mexico", "Spain", "Guatemala", "Cuba"],
+        correctIndex: 0,
         mediaType: "photo", mediaUrl: "assets/images/dishes/burrito_mexico.jpg",
         location: { city: "Ciudad Juárez", country: "Mexico", lat: 31.6904, lng: -106.4245 },
         funFact: "The burrito is believed to have originated in Northern Mexico in the 19th century."
@@ -367,8 +367,8 @@
       {
         text: "This glass noodle stir-fry dish called Japchae is from which country?",
         round: "food", order: 2,
-        choices: ["Japan", "South Korea", "Thailand", "Philippines"],
-        correctIndex: 1,
+        choices: ["Japan", "Thailand", "South Korea", "Philippines"],
+        correctIndex: 2,
         mediaType: "photo", mediaUrl: "assets/images/dishes/Japchae-Korean.webp",
         location: { city: "Seoul", country: "South Korea", lat: 37.5665, lng: 126.978 },
         funFact: "Japchae was originally created for a royal banquet in the 17th century."
@@ -376,8 +376,8 @@
       {
         text: "Fish and chips is a beloved national dish of which country?",
         round: "food", order: 3,
-        choices: ["Australia", "United Kingdom", "Ireland", "Netherlands"],
-        correctIndex: 1,
+        choices: ["Australia", "Ireland", "Netherlands", "United Kingdom"],
+        correctIndex: 3,
         mediaType: "photo", mediaUrl: "assets/images/dishes/Fish_and_chips_UK.jpg",
         location: { city: "London", country: "United Kingdom", lat: 51.5074, lng: -0.1278 },
         funFact: "The first fish and chip shop in the UK opened in the 1860s."
@@ -404,8 +404,8 @@
       {
         text: "The Day of the Dead (Dia de los Muertos) is celebrated in which country?",
         round: "traditions", order: 1,
-        choices: ["Spain", "Mexico", "Brazil", "Philippines"],
-        correctIndex: 1,
+        choices: ["Spain", "Brazil", "Mexico", "Philippines"],
+        correctIndex: 2,
         mediaType: "photo", mediaUrl: "assets/images/culture/DiadelosMuertos.jpg",
         location: { city: "Oaxaca", country: "Mexico", lat: 17.0732, lng: -96.7266 },
         funFact: "Day of the Dead is a celebration of life and death, with roots in Aztec tradition."
@@ -413,8 +413,8 @@
       {
         text: "Diwali, the Festival of Lights, originated in which country?",
         round: "traditions", order: 2,
-        choices: ["Thailand", "India", "Nepal", "Sri Lanka"],
-        correctIndex: 1,
+        choices: ["India", "Thailand", "Nepal", "Sri Lanka"],
+        correctIndex: 0,
         mediaType: "photo", mediaUrl: "assets/images/culture/Diwali.jpg",
         location: { city: "Varanasi", country: "India", lat: 25.3176, lng: 83.0068 },
         funFact: "Diwali is celebrated by over 1 billion people worldwide across multiple religions."
@@ -422,8 +422,8 @@
       {
         text: "The Haka is a traditional war dance of which indigenous people?",
         round: "traditions", order: 3,
-        choices: ["Aboriginal Australians", "Maori (New Zealand)", "Samoan", "Hawaiian"],
-        correctIndex: 1,
+        choices: ["Aboriginal Australians", "Samoan", "Hawaiian", "Maori (New Zealand)"],
+        correctIndex: 3,
         mediaType: "photo", mediaUrl: "assets/images/culture/TheHaka.jpg",
         location: { city: "Wellington", country: "New Zealand", lat: -41.2865, lng: 174.7762 },
         funFact: "The All Blacks rugby team famously performs the Haka before every match."
@@ -440,8 +440,8 @@
       {
         text: "The Lantern Festival marks the end of Chinese New Year in which country?",
         round: "traditions", order: 5,
-        choices: ["Japan", "China", "Vietnam", "South Korea"],
-        correctIndex: 1,
+        choices: ["Japan", "Vietnam", "South Korea", "China"],
+        correctIndex: 3,
         mediaType: "photo", mediaUrl: "assets/images/culture/Lantern_Festival.jpg",
         location: { city: "Beijing", country: "China", lat: 39.9042, lng: 116.4074 },
         funFact: "The Lantern Festival dates back over 2,000 years to the Han Dynasty."
@@ -459,8 +459,8 @@
       {
         text: "The colorful kente cloth is traditionally woven by which people?",
         round: "clothes", order: 2,
-        choices: ["Yoruba (Nigeria)", "Ashanti (Ghana)", "Maasai (Kenya)", "Zulu (South Africa)"],
-        correctIndex: 1,
+        choices: ["Yoruba (Nigeria)", "Maasai (Kenya)", "Zulu (South Africa)", "Ashanti (Ghana)"],
+        correctIndex: 3,
         mediaType: "photo", mediaUrl: "assets/images/clothes/KentheGhana.jpg",
         location: { city: "Kumasi", country: "Ghana", lat: 6.6885, lng: -1.6244 },
         funFact: "Kente cloth patterns have specific meanings and were once reserved for royalty."
@@ -477,8 +477,8 @@
       {
         text: "The hanbok is the traditional clothing of which country?",
         round: "clothes", order: 4,
-        choices: ["Japan", "South Korea", "Mongolia", "Thailand"],
-        correctIndex: 1,
+        choices: ["South Korea", "Japan", "Mongolia", "Thailand"],
+        correctIndex: 0,
         mediaType: "photo", mediaUrl: "assets/images/clothes/hanbok.webp",
         location: { city: "Seoul", country: "South Korea", lat: 37.5665, lng: 126.978 },
         funFact: "Hanbok is characterized by vibrant colors and simple lines without pockets."
@@ -486,8 +486,8 @@
       {
         text: "The poncho is a traditional garment originating from which region?",
         round: "clothes", order: 5,
-        choices: ["Central America", "South America (Andes)", "Caribbean", "Southern Europe"],
-        correctIndex: 1,
+        choices: ["Central America", "Caribbean", "South America (Andes)", "Southern Europe"],
+        correctIndex: 2,
         mediaType: "photo", mediaUrl: "assets/images/clothes/poncho.jpg",
         location: { city: "Cusco", country: "Peru", lat: -13.5319, lng: -71.9675 },
         funFact: "The poncho has been worn by indigenous peoples of the Andes for over 500 years."
