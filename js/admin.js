@@ -304,7 +304,7 @@
 
   function getSeedQuestions() {
     return [
-      // === PHOTOS & PLACES (9) ===
+      // === PHOTOS & PLACES (5) ===
       {
         text: "In which country can you find this famous statue?",
         round: "photos", order: 1,
@@ -350,43 +350,7 @@
         location: { city: "Sidi Bou Said", country: "Tunisia", lat: 36.8687, lng: 10.3497 },
         funFact: "Sidi Bou Said's blue and white color scheme was established by a French baron in 1915."
       },
-      {
-        text: "These rock-hewn churches are a UNESCO World Heritage Site. Where are they?",
-        round: "photos", order: 6,
-        choices: ["Ethiopia", "Egypt", "Jordan", "India"],
-        correctIndex: 0,
-        mediaType: "photo", mediaUrl: "assets/images/places/ÉglisedeLalibelaEthiopie.jpg",
-        location: { city: "Lalibela", country: "Ethiopia", lat: 12.0319, lng: 39.0472 },
-        funFact: "The 11 churches of Lalibela were carved from solid rock in the 12th-13th century."
-      },
-      {
-        text: "This grand mosque is one of the largest in the world. Where is it?",
-        round: "photos", order: 7,
-        choices: ["Saudi Arabia", "Qatar", "UAE", "Oman"],
-        correctIndex: 2,
-        mediaType: "photo", mediaUrl: "assets/images/places/MosqSheikhZayed.jpg",
-        location: { city: "Abu Dhabi", country: "UAE", lat: 24.4128, lng: 54.4750 },
-        funFact: "The Sheikh Zayed Grand Mosque can accommodate over 40,000 worshippers."
-      },
-      {
-        text: "These mysterious stone statues are found on which island?",
-        round: "photos", order: 8,
-        choices: ["Fiji", "Easter Island (Chile)", "Hawaii", "Madagascar"],
-        correctIndex: 1,
-        mediaType: "photo", mediaUrl: "assets/images/places/Statues de l'île de PâquesChili.jpg",
-        location: { city: "Easter Island", country: "Chile", lat: -27.1127, lng: -109.3497 },
-        funFact: "The Moai statues were carved by the Rapa Nui people between 1250 and 1500 AD."
-      },
-      {
-        text: "This ancient citadel lit up at night is in which city?",
-        round: "photos", order: 9,
-        choices: ["Rome", "Athens", "Istanbul", "Cairo"],
-        correctIndex: 1,
-        mediaType: "photo", mediaUrl: "assets/images/places/Acropole-dAthenes-la-nuit-avec-eclairage.jpeg",
-        location: { city: "Athens", country: "Greece", lat: 37.9715, lng: 23.7267 },
-        funFact: "The Acropolis of Athens was built in the 5th century BC during the Golden Age of Pericles."
-      },
-      // === MUSIC & INSTRUMENTS (7) ===
+      // === MUSIC & INSTRUMENTS (5) ===
       {
         text: "This double-pipe wind instrument is traditional to which country?",
         round: "music", order: 1,
@@ -432,25 +396,7 @@
         location: { city: "Delhi", country: "India", lat: 28.6139, lng: 77.209 },
         funFact: "Ravi Shankar popularized the sitar worldwide through his collaboration with The Beatles."
       },
-      {
-        text: "The bagpipes (cornemuse) are most associated with which country?",
-        round: "music", order: 6,
-        choices: ["Ireland", "Scotland", "Wales", "England"],
-        correctIndex: 1,
-        mediaType: "photo", mediaUrl: "assets/images/instruments/CornemuseEcosse.jpg",
-        location: { city: "Edinburgh", country: "Scotland", lat: 55.9533, lng: -3.1883 },
-        funFact: "The Great Highland Bagpipe has been used in Scottish military for over 500 years."
-      },
-      {
-        text: "This two-stringed bowed instrument called the erhu is from which country?",
-        round: "music", order: 7,
-        choices: ["Japan", "Vietnam", "China", "Korea"],
-        correctIndex: 2,
-        mediaType: "photo", mediaUrl: "assets/images/instruments/Erhu_in_the_MetsChina.jpg",
-        location: { city: "Beijing", country: "China", lat: 39.9042, lng: 116.4074 },
-        funFact: "The erhu has been played for over 1,000 years and is often called the Chinese violin."
-      },
-      // === FOOD & CUISINE (12) ===
+      // === FOOD & CUISINE (5) ===
       {
         text: "This burrito is a traditional dish from which country?",
         round: "food", order: 1,
@@ -479,62 +425,8 @@
         funFact: "The first fish and chip shop in the UK opened in the 1860s."
       },
       {
-        text: "Falafels are a popular street food originating from which region?",
-        round: "food", order: 4,
-        choices: ["Turkey", "Lebanon", "Greece", "Iran"],
-        correctIndex: 1,
-        mediaType: "photo", mediaUrl: "assets/images/dishes/falafelsLiban.jpg",
-        location: { city: "Beirut", country: "Lebanon", lat: 33.8938, lng: 35.5018 },
-        funFact: "Falafels are one of the most widely consumed Middle Eastern foods worldwide."
-      },
-      {
-        text: "This spiced rice dish called Kabsa is the national dish of which country?",
-        round: "food", order: 5,
-        choices: ["Yemen", "Saudi Arabia", "Oman", "Iraq"],
-        correctIndex: 1,
-        mediaType: "photo", mediaUrl: "assets/images/dishes/KabsaKSA.jpg",
-        location: { city: "Riyadh", country: "Saudi Arabia", lat: 24.7136, lng: 46.6753 },
-        funFact: "Kabsa is the most popular dish in Saudi Arabia, often served for gatherings."
-      },
-      {
-        text: "This black bean stew called Feijoada is the national dish of which country?",
-        round: "food", order: 6,
-        choices: ["Portugal", "Brazil", "Angola", "Mozambique"],
-        correctIndex: 1,
-        mediaType: "photo", mediaUrl: "assets/images/dishes/FeijoadaBrezil.jpeg",
-        location: { city: "Rio de Janeiro", country: "Brazil", lat: -22.9068, lng: -43.1729 },
-        funFact: "Feijoada is traditionally served on Wednesdays and Saturdays in Brazilian restaurants."
-      },
-      {
-        text: "Bunny chow — a hollowed bread loaf filled with curry — is from which country?",
-        round: "food", order: 7,
-        choices: ["India", "Jamaica", "South Africa", "Australia"],
-        correctIndex: 2,
-        mediaType: "photo", mediaUrl: "assets/images/dishes/BunnychowAfriqueSud.jpeg",
-        location: { city: "Durban", country: "South Africa", lat: -29.8587, lng: 31.0218 },
-        funFact: "Bunny chow was created by the Indian community in Durban in the 1940s."
-      },
-      {
-        text: "These meatballs (köttbullar) are a famous dish from which country?",
-        round: "food", order: 8,
-        choices: ["Denmark", "Norway", "Sweden", "Finland"],
-        correctIndex: 2,
-        mediaType: "photo", mediaUrl: "assets/images/dishes/Swedish-meatballs-kottbullar.jpg",
-        location: { city: "Stockholm", country: "Sweden", lat: 59.3293, lng: 18.0686 },
-        funFact: "Swedish meatballs became globally famous thanks to IKEA's food courts."
-      },
-      {
-        text: "Poutine — fries with cheese curds and gravy — is from which country?",
-        round: "food", order: 9,
-        choices: ["Belgium", "USA", "Canada", "France"],
-        correctIndex: 2,
-        mediaType: "photo", mediaUrl: "assets/images/dishes/poutineCanada.jpg",
-        location: { city: "Québec", country: "Canada", lat: 46.8139, lng: -71.2082 },
-        funFact: "Poutine originated in rural Québec in the late 1950s."
-      },
-      {
         text: "This tagine dish with chicken and olives is from which country?",
-        round: "food", order: 10,
+        round: "food", order: 4,
         choices: ["Algeria", "Morocco", "Tunisia", "Libya"],
         correctIndex: 1,
         mediaType: "photo", mediaUrl: "assets/images/dishes/TajinePouletMAroc.png",
@@ -542,17 +434,8 @@
         funFact: "The tagine is both the name of the dish and the conical clay pot it's cooked in."
       },
       {
-        text: "This layered rice and lentil dish called Koshari is the national dish of which country?",
-        round: "food", order: 11,
-        choices: ["Sudan", "Egypt", "Syria", "Lebanon"],
-        correctIndex: 1,
-        mediaType: "photo", mediaUrl: "assets/images/dishes/kosharyEgypte.jpg",
-        location: { city: "Cairo", country: "Egypt", lat: 30.0444, lng: 31.2357 },
-        funFact: "Koshari is Egypt's most popular street food, mixing Italian, Indian and Arab influences."
-      },
-      {
         text: "This communal hot pot is a traditional way of eating in which country?",
-        round: "food", order: 12,
+        round: "food", order: 5,
         choices: ["Japan", "Vietnam", "China", "Mongolia"],
         correctIndex: 2,
         mediaType: "photo", mediaUrl: "assets/images/dishes/hotpotChina.jpg",

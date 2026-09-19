@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Unit Tests — game-constants.js</title>
+  <style>
+    body { font-family: monospace; padding: 20px; background: #1a1a2e; color: #eee; }
+    .pass { color: #26890C; }
+    .fail { color: #E21B3C; font-weight: bold; }
+    .section { color: #F2A922; font-size: 1.1em; margin-top: 16px; }
+    #summary { margin-top: 24px; font-size: 1.2em; padding: 12px; border-radius: 8px; }
+    #summary.all-pass { background: #1b4332; color: #52b788; }
+    #summary.has-fail { background: #3d0000; color: #ff6b6b; }
+  </style>
+</head>
+<body>
+  <h1>Culture Day Quiz — Unit Tests</h1>
+  <div id="results"></div>
+  <div id="summary"></div>
+
+  <script src="../js/game-constants.js"></script>
+  <script>
+    const results = document.getElementById('results');
+    let passed = 0, failed = 0;
+
+    function section(name) {
+      results.innerHTML += '<div class="section">--- ' + name + ' ---</div>';
+    }
+
+    function assert(description, condition) {
+      if (condition) {
+        passed++;
+        results.innerHTML += '<div class="pass">PASS: ' + description + '</div>';
+      } else {
+        failed++;
+        results.innerHTML += '<div class="fail">FAIL: ' + description + '</div>';
+      }
+    }
+
+    function assertApprox(description, actual, expected, tolerance) {
+      tolerance = tolerance || 1;
+      const ok = Math.abs(actual - expected) <= tolerance;
+      if (ok) {
+        passed++;
+        results.innerHTML += '<div class="pass">PASS: ' + description + ' (got ' + actual.toFixed(1) + ')</div>';
+      } else {
+        failed++;
+        results.innerHTML += '<div class="fail">FAIL: ' + description + ' (expected ~' + expected + ', got ' + actual.toFixed(1) + ')</div>';
+      }
+    }
+
+    // =====================
+    // haversineDistance()
+    // =====================
+    section('haversineDistance');
+
+    assert('Same point returns 0', haversineDistance(0, 0, 0, 0) === 0);
+
+    assertApprox('Paris to London ~344 km',
+      haversineDistance(48.8566, 2.3522, 51.5074, -0.1278), 344, 5);
+
+    assertApprox('New York to Los Angeles ~3944 km',
+      haversineDistance(40.7128, -74.006, 34.0522, -118.2437), 3944, 50);
+
+    assertApprox('North pole to South pole ~20015 km',
+      haversineDistance(90, 0, -90, 0), 20015, 20);
+
+    assert('Symmetric: d(A,B) === d(B,A)',
+      haversineDistance(48.8566, 2.3522, 51.5074, -0.1278) ===
+      haversineDistance(51.5074, -0.1278, 48.8566, 2.3522));
+
+    // =====================
+    // calculateDistanceScore()
+    // =====================
+    section('calculateDistanceScore');
+
+    assert('0 km = 1500 pts', calculateDistanceScore(0) === 1500);
+    assert('50 km = 1500 pts', calculateDistanceScore(50) === 1500);
+    assert('51 km = 1200 pts', calculateDistanceScore(51) === 1200);
+    assert('200 km = 1200 pts', calculateDistanceScore(200) === 1200);
+    assert('201 km = 900 pts', calculateDistanceScore(201) === 900);
+    assert('500 km = 900 pts', calculateDistanceScore(500) === 900);
+    assert('501 km = 600 pts', calculateDistanceScore(501) === 600);
+    assert('1000 km = 600 pts', calculateDistanceScore(1000) === 600);
+    assert('1001 km = 300 pts', calculateDistanceScore(1001) === 300);
+    assert('2000 km = 300 pts', calculateDistanceScore(2000) === 300);
+    assert('2001 km = 100 pts', calculateDistanceScore(2001) === 100);
+    assert('99999 km = 100 pts', calculateDistanceScore(99999) === 100);
+
+    // =====================
+    // getDistanceFeedback()
+    // =====================
+    section('getDistanceFeedback');
+
+    assert('10 km -> Perfect', getDistanceFeedback(10).label === 'Perfect!');
+    assert('100 km -> Very close', getDistanceFeedback(100).label === 'Very close!');
+    assert('400 km -> Not bad', getDistanceFeedback(400).label === 'Not bad!');
+    assert('1000 km -> Far', getDistanceFeedback(1000).label === 'Far!');
+    assert('5000 km -> Way off', getDistanceFeedback(5000).label === 'Way off!');
+
+    // =====================
+    // calculateScore()
+    // =====================
+    section('calculateScore (multiple choice)');
+
+    var result = calculateScore(false, 5000, 20000, 0);
+    assert('Wrong answer = 0 points', result.points === 0);
+    assert('Wrong answer resets streak', result.newStreak === 0);
+
+    result = calculateScore(true, 0, 20000, 0);
+    assert('Correct + instant answer = base + max speed = 1500', result.points === 1500);
+    assert('Breakdown: base=1000', result.breakdown.base === 1000);
+    assert('Breakdown: speed=500', result.breakdown.speed === 500);
+    assert('Breakdown: streak=0 (streak=1, below threshold)', result.breakdown.streak === 0);
+
+    result = calculateScore(true, 20000, 20000, 0);
+    assert('Correct + slowest answer = base only = 1000', result.points === 1000);
+    assert('Speed bonus is 0 at max time', result.breakdown.speed === 0);
+
+    result = calculateScore(true, 10000, 20000, 0);
+    assert('Correct + half time = base + 250 speed = 1250', result.points === 1250);
+
+    result = calculateScore(true, 5000, 20000, 2);
+    assert('Correct + streak=2 (becomes 3) triggers streak bonus', result.points > 0);
+    assert('Streak bonus = 100', result.breakdown.streak === 100);
+    assert('New streak = 3', result.newStreak === 3);
+
+    result = calculateScore(true, 5000, 20000, 4);
+    assert('Streak=4 (becomes 5) still gives streak bonus', result.breakdown.streak === 100);
+
+    result = calculateScore(true, 5000, 20000, 1);
+    assert('Streak=1 (becomes 2) no streak bonus yet', result.breakdown.streak === 0);
+
+    // Negative response time should be clamped to 0
+    result = calculateScore(true, -1000, 20000, 0);
+    assert('Negative response time clamped: full speed bonus', result.breakdown.speed === 500);
+
+    // Response time exceeding timer should be clamped
+    result = calculateScore(true, 25000, 20000, 0);
+    assert('Overtime response clamped: zero speed bonus', result.breakdown.speed === 0);
+
+    // =====================
+    // calculateMapScore()
+    // =====================
+    section('calculateMapScore (map rounds)');
+
+    result = calculateMapScore(10, 0, 30000, 0);
+    assert('10 km + instant = 1500 + 200 = 1700', result.points === 1700);
+
+    result = calculateMapScore(10, 30000, 30000, 0);
+    assert('10 km + slowest = 1500 + 0 = 1500', result.points === 1500);
+
+    result = calculateMapScore(600, 15000, 30000, 0);
+    assert('600 km = 600 base pts', result.breakdown.base === 600);
+
+    result = calculateMapScore(100, 5000, 30000, 2);
+    assert('Map streak: 100km distance (<=500) increments streak', result.newStreak === 3);
+    assert('Map streak bonus triggers at 3', result.breakdown.streak === 100);
+
+    result = calculateMapScore(1000, 5000, 30000, 5);
+    assert('Map: >500km resets streak', result.newStreak === 0);
+    assert('Map: no streak bonus when reset', result.breakdown.streak === 0);
+
+    assert('Map: distanceKm is rounded', result.distanceKm === 1000);
+
+    // =====================
+    // isDoublePointsQuestion()
+    // =====================
+    section('isDoublePointsQuestion');
+
+    var mockQuestions = [
+      { round: 'photos' }, { round: 'photos' }, { round: 'photos' },
+      { round: 'music' }, { round: 'music' }
+    ];
+
+    assert('First question is NOT double', !isDoublePointsQuestion(0, mockQuestions));
+    assert('Second question is NOT double', !isDoublePointsQuestion(1, mockQuestions));
+    assert('Last photo (index 2) IS double', isDoublePointsQuestion(2, mockQuestions));
+    assert('First music (index 3) is NOT double', !isDoublePointsQuestion(3, mockQuestions));
+    assert('Last music (index 4) IS double', isDoublePointsQuestion(4, mockQuestions));
+    assert('Out of bounds returns false', !isDoublePointsQuestion(-1, mockQuestions));
+    assert('Out of bounds (too high) returns false', !isDoublePointsQuestion(99, mockQuestions));
+
+    // Single question per round
+    var singleQ = [{ round: 'history' }];
+    assert('Single question in round IS double', isDoublePointsQuestion(0, singleQ));
+
+    // =====================
+    // generateGameCode()
+    // =====================
+    section('generateGameCode');
+
+    var code = generateGameCode();
+    assert('Code is 4 characters', code.length === 4);
+    assert('Code is uppercase alphanumeric', /^[A-Z0-9]+$/.test(code));
+    assert('Code excludes ambiguous chars (I, O, 0, 1)', !/[IO01]/.test(code));
+
+    var codes = new Set();
+    for (var i = 0; i < 100; i++) codes.add(generateGameCode());
+    assert('100 generated codes has decent uniqueness (>50 unique)', codes.size > 50);
+
+    // =====================
+    // isMapRound()
+    // =====================
+    section('isMapRound');
+
+    assert('photos is map round', isMapRound('photos'));
+    assert('geography is map round', isMapRound('geography'));
+    assert('music is NOT map round', !isMapRound('music'));
+    assert('food is NOT map round', !isMapRound('food'));
+    assert('history is NOT map round', !isMapRound('history'));
+    assert('traditions is NOT map round', !isMapRound('traditions'));
+    assert('clothes is NOT map round', !isMapRound('clothes'));
+
+    // =====================
+    // formatPoints()
+    // =====================
+    section('formatPoints');
+
+    assert('0 formats correctly', formatPoints(0) === '0');
+    assert('1500 formats with comma', formatPoints(1500).replace(/\s/g, '').replace(/,/g, '') === '1500');
+
+    // =====================
+    // showScreen()
+    // =====================
+    section('showScreen');
+
+    // Create mock screens
+    var d1 = document.createElement('div'); d1.className = 'screen active'; d1.id = 'test-a';
+    var d2 = document.createElement('div'); d2.className = 'screen'; d2.id = 'test-b';
+    document.body.appendChild(d1);
+    document.body.appendChild(d2);
+
+    showScreen('test-b');
+    assert('showScreen removes active from other screens', !d1.classList.contains('active'));
+    assert('showScreen adds active to target', d2.classList.contains('active'));
+
+    d1.remove();
+    d2.remove();
+
+    // =====================
+    // Constants validation
+    // =====================
+    section('Constants');
+
+    assert('7 rounds defined', ROUND_ORDER.length === 7);
+    assert('ROUND_ORDER matches ROUNDS', ROUND_ORDER.every(function(r) {
+      return Object.values(ROUNDS).includes(r);
+    }));
+    assert('Every round has a label', ROUND_ORDER.every(function(r) { return ROUND_LABELS[r]; }));
+    assert('Every round has an icon', ROUND_ORDER.every(function(r) { return ROUND_ICONS[r]; }));
+    assert('4 answer colors', ANSWER_COLORS.length === 4);
+    assert('QUESTIONS_PER_ROUND is 5', QUESTIONS_PER_ROUND === 5);
+    assert('SCORING.DOUBLE_POINTS_MULTIPLIER is 2', SCORING.DOUBLE_POINTS_MULTIPLIER === 2);
+    assert('Distance scoring tiers are ordered', DISTANCE_SCORING.every(function(t, i) {
+      return i === 0 || DISTANCE_SCORING[i-1].maxKm < t.maxKm;
+    }));
+    assert('Distance scoring points decrease', DISTANCE_SCORING.every(function(t, i) {
+      return i === 0 || DISTANCE_SCORING[i-1].points >= t.points;
+    }));
+
+    // =====================
+    // Summary
+    // =====================
+    var summary = document.getElementById('summary');
+    var total = passed + failed;
+    summary.textContent = passed + '/' + total + ' tests passed' + (failed > 0 ? ' (' + failed + ' FAILED)' : ' - All green!');
+    summary.className = failed > 0 ? 'has-fail' : 'all-pass';
+  </script>
+</body>
+</html>

@@ -11,6 +11,9 @@
   let timerDuration = 20;
   let answerListener = null;
   let leafletMap = null;
+  let revealTimeout = null;
+  let revealCountdownInterval = null;
+  let isTransitioningToReveal = false;
 
   const $ = id => document.getElementById(id);
 
@@ -104,6 +107,9 @@
 
   // === QUESTION ===
   function enterQuestion() {
+    isTransitioningToReveal = false;
+    clearTimeout(revealTimeout);
+    clearInterval(revealCountdownInterval);
     const q = questions[currentQIndex];
     if (!q) return transitionTo(STATES.FINISHED);
 
@@ -192,6 +198,8 @@
   }
 
   async function goToReveal() {
+    if (isTransitioningToReveal) return;
+    isTransitioningToReveal = true;
     if (answerListener) { answerListener(); answerListener = null; }
     const audio = $('q-audio');
     if (audio && !audio.paused) audio.pause();
@@ -313,20 +321,21 @@
     // Right: leaderboard
     renderLeaderboard('leaderboard-list', players, 8);
 
-    // Next button
+    // Next button + auto-advance
     const isLast = currentQIndex >= questions.length - 1;
     const nextBtn = $('btn-next-question');
+    clearTimeout(revealTimeout);
+    clearInterval(revealCountdownInterval);
 
-    if (isLast) {
-      nextBtn.textContent = 'Show Final Results 🏆';
-      nextBtn.onclick = () => transitionTo(STATES.FINISHED);
-    } else {
-      const nextQ = questions[currentQIndex + 1];
-      const currentQ = questions[currentQIndex];
-      const isNewRound = nextQ && nextQ.round !== currentQ.round;
-
-      nextBtn.textContent = 'Next Question →';
-      nextBtn.onclick = () => {
+    function advanceToNext() {
+      clearTimeout(revealTimeout);
+      clearInterval(revealCountdownInterval);
+      if (isLast) {
+        transitionTo(STATES.FINISHED);
+      } else {
+        const nextQ = questions[currentQIndex + 1];
+        const currentQ = questions[currentQIndex];
+        const isNewRound = nextQ && nextQ.round !== currentQ.round;
         currentQIndex++;
         gameRef.update({ currentQuestionIndex: currentQIndex });
         if (isNewRound) {
@@ -334,8 +343,25 @@
         } else {
           transitionTo(STATES.QUESTION);
         }
-      };
+      }
     }
+
+    nextBtn.textContent = isLast ? 'Show Final Results 🏆' : 'Next Question →';
+    nextBtn.onclick = advanceToNext;
+
+    // Auto-advance countdown (20 seconds)
+    const countdownEl = $('reveal-countdown');
+    let revealSecondsLeft = 20;
+    if (countdownEl) {
+      countdownEl.textContent = revealSecondsLeft + 's';
+      countdownEl.style.display = 'inline-block';
+    }
+    revealCountdownInterval = setInterval(() => {
+      revealSecondsLeft--;
+      if (countdownEl) countdownEl.textContent = revealSecondsLeft + 's';
+      if (revealSecondsLeft <= 0) clearInterval(revealCountdownInterval);
+    }, 1000);
+    revealTimeout = setTimeout(advanceToNext, 20000);
   }
 
   // === FINISHED ===
