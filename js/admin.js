@@ -289,7 +289,9 @@
 
   // === SEED SAMPLE QUESTIONS ===
   $('btn-seed').addEventListener('click', async () => {
-    if (!confirm('This will add sample questions. Continue?')) return;
+    if (!confirm('This will REPLACE all existing questions with the sample set. Continue?')) return;
+
+    await db.ref('questions').remove();
 
     const seed = getSeedQuestions();
     let count = 0;
@@ -299,7 +301,7 @@
       await db.ref('questions').push(q);
       count++;
     }
-    alert('Added ' + count + ' sample questions!');
+    alert('Replaced with ' + count + ' sample questions!');
   });
 
   function getSeedQuestions() {
