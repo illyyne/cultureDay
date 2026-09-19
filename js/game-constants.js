@@ -9,7 +9,6 @@ const STATES = {
 
 const ROUNDS = {
   PHOTOS: 'photos',
-  MUSIC: 'music',
   FOOD: 'food',
   HISTORY: 'history',
   GEOGRAPHY: 'geography',
@@ -19,7 +18,6 @@ const ROUNDS = {
 
 const ROUND_LABELS = {
   photos: 'Photos & Places',
-  music: 'Music & Instruments',
   food: 'Food & Cuisine',
   history: 'History',
   geography: 'Geography',
@@ -29,7 +27,6 @@ const ROUND_LABELS = {
 
 const ROUND_ICONS = {
   photos: '📸',
-  music: '🎵',
   food: '🍜',
   history: '📜',
   geography: '🌍',
@@ -37,7 +34,7 @@ const ROUND_ICONS = {
   clothes: '👘'
 };
 
-const ROUND_ORDER = ['photos', 'music', 'food', 'history', 'geography', 'traditions', 'clothes'];
+const ROUND_ORDER = ['photos', 'food', 'history', 'geography', 'traditions', 'clothes'];
 
 const MAP_ROUNDS = ['photos', 'geography'];
 
