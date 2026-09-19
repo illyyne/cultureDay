@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Culture Day Quiz</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/player.css">
+</head>
+<body>
+
+  <!-- JOIN -->
+  <div id="screen-join" class="screen active">
+    <h1 class="join-logo">🌍</h1>
+    <h2 class="join-title">Culture Day Quiz</h2>
+    <div class="join-form">
+      <input id="game-code-input" class="input" type="text" placeholder="Game Code"
+             maxlength="6" autocomplete="off" autocorrect="off" autocapitalize="characters">
+      <input id="player-name-input" class="input" type="text" placeholder="Your Name"
+             maxlength="20" autocomplete="off">
+      <div id="join-error" class="join-error"></div>
+      <button id="btn-join" class="btn btn-primary join-btn">Join Game</button>
+    </div>
+  </div>
+
+  <!-- LOBBY WAIT -->
+  <div id="screen-lobby" class="screen">
+    <div class="wait-icon">⏳</div>
+    <div class="wait-name" id="player-display-name"></div>
+    <p class="wait-message">Waiting for the host to start the game...</p>
+    <div class="wait-player-count" id="wait-player-count">0 players joined</div>
+  </div>
+
+  <!-- QUESTION -->
+  <div id="screen-question" class="screen">
+    <div class="player-round-info" id="p-round-info"></div>
+    <div class="player-timer" id="p-timer">20</div>
+    <p class="player-question-text" id="p-question-text"></p>
+    <div class="answer-grid" id="p-answer-grid"></div>
+  </div>
+
+  <!-- ANSWERED (waiting) -->
+  <div id="screen-answered" class="screen">
+    <div class="answered-icon">✅</div>
+    <p class="answered-text">Answer locked in!</p>
+    <div class="player-timer" id="p-timer-wait">--</div>
+  </div>
+
+  <!-- FEEDBACK -->
+  <div id="screen-feedback" class="screen feedback-screen">
+    <div class="feedback-icon" id="fb-icon"></div>
+    <div class="feedback-result" id="fb-result"></div>
+    <div class="feedback-points" id="fb-points"></div>
+    <div class="feedback-correct-answer" id="fb-correct"></div>
+    <div class="streak-badge" id="fb-streak" style="display:none"></div>
+  </div>
+
+  <!-- RANK -->
+  <div id="screen-rank" class="screen">
+    <div class="rank-label">You are</div>
+    <div class="rank-position" id="rank-position">#1</div>
+    <div class="rank-label" id="rank-of">out of 20</div>
+    <div class="rank-total-score" id="rank-score">0 pts</div>
+  </div>
+
+  <!-- FINISHED -->
+  <div id="screen-finished" class="screen">
+    <div class="final-trophy" id="final-trophy">🏆</div>
+    <div class="final-rank" id="final-rank">#1</div>
+    <div class="final-score" id="final-score">0 pts</div>
+    <p class="final-message" id="final-message">Thanks for playing!</p>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/game-constants.js"></script>
+  <script src="js/player.js"></script>
+</body>
+</html>

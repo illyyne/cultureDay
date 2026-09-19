@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Culture Day Quiz — Admin</title>
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <div class="admin-container">
+    <div class="admin-header">
+      <h1 class="admin-title">🌍 Question Manager</h1>
+      <div class="admin-actions">
+        <button id="btn-import" class="btn btn-secondary" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4)">Import JSON</button>
+        <button id="btn-export" class="btn btn-secondary" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4)">Export JSON</button>
+        <button id="btn-seed" class="btn btn-secondary" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4)">Seed Sample Questions</button>
+        <button id="btn-add" class="btn btn-primary" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4)">+ Add Question</button>
+      </div>
+    </div>
+
+    <div class="round-tabs">
+      <button class="round-tab active" data-round="all">All</button>
+      <button class="round-tab" data-round="photos">📸 Photos & Places</button>
+      <button class="round-tab" data-round="music">🎵 Music & Rhythm</button>
+      <button class="round-tab" data-round="food">🍜 Food & Cuisine</button>
+    </div>
+
+    <div id="question-list" class="question-list">
+      <div class="empty-state">
+        <div class="empty-state-icon">📝</div>
+        <p class="empty-state-text">No questions yet. Add one or import from JSON.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Question Modal -->
+  <div id="question-modal" class="modal-overlay">
+    <div class="modal">
+      <h2 class="modal-title" id="modal-title">Add Question</h2>
+
+      <div class="form-group">
+        <label class="form-label">Round</label>
+        <select id="form-round" class="form-select">
+          <option value="photos">📸 Photos & Places</option>
+          <option value="music">🎵 Music & Rhythm</option>
+          <option value="food">🍜 Food & Cuisine</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Question Text</label>
+        <textarea id="form-text" class="form-textarea" placeholder="e.g., Which country is this dish from?"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Answers (select the correct one)</label>
+        <div class="choices-group">
+          <div class="choice-row">
+            <input type="radio" name="correct" value="0" checked>
+            <div class="choice-color" style="background:var(--color-answer-a)"></div>
+            <input type="text" id="form-choice-0" class="form-input" placeholder="Answer A">
+          </div>
+          <div class="choice-row">
+            <input type="radio" name="correct" value="1">
+            <div class="choice-color" style="background:var(--color-answer-b)"></div>
+            <input type="text" id="form-choice-1" class="form-input" placeholder="Answer B">
+          </div>
+          <div class="choice-row">
+            <input type="radio" name="correct" value="2">
+            <div class="choice-color" style="background:var(--color-answer-c)"></div>
+            <input type="text" id="form-choice-2" class="form-input" placeholder="Answer C">
+          </div>
+          <div class="choice-row">
+            <input type="radio" name="correct" value="3">
+            <div class="choice-color" style="background:var(--color-answer-d)"></div>
+            <input type="text" id="form-choice-3" class="form-input" placeholder="Answer D">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Media (optional)</label>
+        <select id="form-media-type" class="form-select" style="margin-bottom:var(--space-2)">
+          <option value="">No media</option>
+          <option value="photo">Photo</option>
+          <option value="audio">Audio</option>
+        </select>
+        <input type="file" id="form-media-file" class="form-input" style="display:none" accept="image/*,audio/*">
+        <div id="media-preview-container"></div>
+        <input type="text" id="form-media-url" class="form-input" placeholder="Or paste media URL" style="margin-top:var(--space-2)">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Location (for map reveal)</label>
+        <div class="location-group">
+          <input type="text" id="form-city" class="form-input" placeholder="City">
+          <input type="text" id="form-country" class="form-input" placeholder="Country">
+          <input type="number" id="form-lat" class="form-input" placeholder="Latitude" step="any">
+          <input type="number" id="form-lng" class="form-input" placeholder="Longitude" step="any">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Fun Fact (optional, shown on reveal)</label>
+        <input type="text" id="form-funfact" class="form-input" placeholder="e.g., This dish dates back to the 15th century...">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Display Order (within round)</label>
+        <input type="number" id="form-order" class="form-input" value="1" min="1" style="max-width:100px">
+      </div>
+
+      <input type="hidden" id="form-edit-id" value="">
+
+      <div class="modal-footer">
+        <button id="btn-cancel" class="btn-sm">Cancel</button>
+        <button id="btn-save" class="btn btn-primary" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4)">Save Question</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hidden file input for import -->
+  <input type="file" id="import-file" style="display:none" accept=".json">
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/game-constants.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>

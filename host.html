@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Culture Day Quiz — Host</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="css/shared.css">
+  <link rel="stylesheet" href="css/host.css">
+</head>
+<body>
+
+  <!-- LOBBY -->
+  <div id="screen-lobby" class="screen active">
+    <h1 class="lobby-title">Culture Day Quiz</h1>
+    <p class="lobby-subtitle">Join the game on your phone!</p>
+    <div class="lobby-join-info">
+      <div>
+        <div style="font-size:var(--text-lg);color:var(--color-text-secondary);margin-bottom:var(--space-2)">Game Code</div>
+        <div id="game-code-display" class="lobby-code">----</div>
+      </div>
+      <div id="qrcode"></div>
+    </div>
+    <div id="player-count" class="player-count">0 players joined</div>
+    <div id="player-chips" class="lobby-players"></div>
+    <div class="lobby-controls">
+      <label style="color:var(--color-text-secondary)">
+        Timer:
+        <select id="timer-select" class="timer-select">
+          <option value="15">15s</option>
+          <option value="20" selected>20s</option>
+          <option value="30">30s</option>
+        </select>
+      </label>
+      <button id="btn-start" class="btn btn-primary" disabled>Start Game</button>
+    </div>
+  </div>
+
+  <!-- ROUND INTERSTITIAL -->
+  <div id="round-interstitial" class="round-interstitial">
+    <h2 id="round-number"></h2>
+    <h1 id="round-name"></h1>
+  </div>
+
+  <!-- QUESTION -->
+  <div id="screen-question" class="screen">
+    <div class="question-header">
+      <span id="q-round-badge" class="round-badge"></span>
+      <span id="q-counter" class="question-counter"></span>
+    </div>
+    <div class="question-body">
+      <h2 id="q-text" class="question-text"></h2>
+      <img id="q-image" class="question-media" style="display:none" alt="Question media">
+      <div id="q-audio-container" class="question-audio-container" style="display:none">
+        <span class="question-audio-icon">🎵</span>
+        <audio id="q-audio" controls></audio>
+      </div>
+      <div id="q-choices" class="question-choices"></div>
+    </div>
+    <div id="q-answer-count" class="answer-count" style="display:none">
+      <span id="answered-count">0</span> / <span id="total-players">0</span> answered
+    </div>
+    <div class="host-timer" id="host-timer">
+      <div class="timer-ring">
+        <svg viewBox="0 0 100 100">
+          <circle class="track" cx="50" cy="50" r="44"/>
+          <circle class="progress" id="timer-progress" cx="50" cy="50" r="44"
+                  stroke-dasharray="276.46" stroke-dashoffset="0"/>
+        </svg>
+        <div class="time-text" id="timer-text">20</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANSWERS (distribution) -->
+  <div id="screen-answers" class="screen">
+    <h2 class="question-text" id="answers-q-text"></h2>
+    <div id="answer-bars" class="answer-bars"></div>
+  </div>
+
+  <!-- REVEAL -->
+  <div id="screen-reveal" class="screen">
+    <h2 class="question-text" id="reveal-q-text" style="margin-bottom:var(--space-4)"></h2>
+    <div id="reveal-choices" class="question-choices" style="max-width:1200px;width:100%"></div>
+    <div id="reveal-map" class="map-container"></div>
+    <p id="reveal-fun-fact" class="fun-fact"></p>
+    <button id="btn-show-leaderboard" class="btn btn-accent host-nav-btn">Show Leaderboard →</button>
+  </div>
+
+  <!-- LEADERBOARD -->
+  <div id="screen-leaderboard" class="screen">
+    <h1 class="leaderboard-title">Leaderboard</h1>
+    <div id="leaderboard-list" class="leaderboard-container"></div>
+    <button id="btn-next-question" class="btn btn-primary host-nav-btn">Next Question →</button>
+  </div>
+
+  <!-- FINISHED -->
+  <div id="screen-finished" class="screen">
+    <div id="confetti-container"></div>
+    <h1 class="winner-text" id="winner-text"></h1>
+    <div id="podium" class="podium"></div>
+    <div id="final-leaderboard" class="leaderboard-container" style="margin-top:var(--space-8)"></div>
+    <button id="btn-play-again" class="btn btn-primary" style="margin-top:var(--space-8)">Play Again</button>
+  </div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/game-constants.js"></script>
+  <script src="js/map-utils.js"></script>
+  <script src="js/leaderboard.js"></script>
+  <script src="js/host.js"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+{
+  "rules": {
+    "questions": {
+      ".read": true,
+      ".write": "auth != null"
+    },
+    "games": {
+      "$gameCode": {
+        ".read": true,
+        ".write": "auth != null",
+        "answers": {
+          "$qIndex": {
+            "$playerId": {
+              ".write": "auth != null && !data.exists()",
+              ".validate": "newData.hasChildren(['choiceIndex', 'answeredAt'])"
+            }
+          }
+        }
+      }
+    }
+  }
+}
