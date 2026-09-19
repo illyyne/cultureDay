@@ -46,10 +46,16 @@
     qr.addData(url);
     qr.make();
     $('qrcode').innerHTML = qr.createSvgTag(5, 0);
-    const linkEl = document.createElement('div');
-    linkEl.style.cssText = 'font-size:var(--text-sm);color:var(--color-text-secondary);margin-top:var(--space-2);word-break:break-all;max-width:300px;text-align:center;';
+    const linkEl = document.createElement('a');
+    linkEl.href = url;
+    linkEl.target = '_blank';
+    linkEl.style.cssText = 'display:block;font-size:var(--text-base);color:var(--color-accent);margin-top:var(--space-3);word-break:break-all;max-width:320px;text-align:center;text-decoration:underline;';
     linkEl.textContent = url;
+    const hintEl = document.createElement('div');
+    hintEl.style.cssText = 'font-size:var(--text-sm);color:var(--color-text-secondary);margin-top:var(--space-1);text-align:center;';
+    hintEl.textContent = '💻 Or open this link on your laptop';
     $('qrcode').appendChild(linkEl);
+    $('qrcode').appendChild(hintEl);
   }
 
   function listenForPlayers() {
