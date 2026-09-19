@@ -49,10 +49,10 @@
     const linkEl = document.createElement('a');
     linkEl.href = url;
     linkEl.target = '_blank';
-    linkEl.style.cssText = 'display:block;font-size:var(--text-base);color:var(--color-accent);margin-top:var(--space-3);word-break:break-all;max-width:320px;text-align:center;text-decoration:underline;';
+    linkEl.style.cssText = 'display:block;font-size:1.5rem;font-weight:bold;color:var(--color-accent);margin-top:var(--space-4);word-break:break-all;max-width:500px;text-align:center;text-decoration:underline;';
     linkEl.textContent = url;
     const hintEl = document.createElement('div');
-    hintEl.style.cssText = 'font-size:var(--text-sm);color:var(--color-text-secondary);margin-top:var(--space-1);text-align:center;';
+    hintEl.style.cssText = 'font-size:1.1rem;color:var(--color-text-secondary);margin-top:var(--space-2);text-align:center;';
     hintEl.textContent = '💻 Or open this link on your laptop';
     $('qrcode').appendChild(linkEl);
     $('qrcode').appendChild(hintEl);

@@ -13,7 +13,8 @@ const ROUNDS = {
   HISTORY: 'history',
   GEOGRAPHY: 'geography',
   TRADITIONS: 'traditions',
-  CLOTHES: 'clothes'
+  CLOTHES: 'clothes',
+  BONUS: 'bonus'
 };
 
 const ROUND_LABELS = {
@@ -22,7 +23,8 @@ const ROUND_LABELS = {
   history: 'History',
   geography: 'Geography',
   traditions: 'Traditions & Festivals',
-  clothes: 'Clothes & Fashion'
+  clothes: 'Clothes & Fashion',
+  bonus: 'Bonus'
 };
 
 const ROUND_ICONS = {
@@ -31,12 +33,13 @@ const ROUND_ICONS = {
   history: '📜',
   geography: '🌍',
   traditions: '🎭',
-  clothes: '👘'
+  clothes: '👘',
+  bonus: '⭐'
 };
 
-const ROUND_ORDER = ['photos', 'food', 'history', 'geography', 'traditions', 'clothes'];
+const ROUND_ORDER = ['photos', 'food', 'history', 'geography', 'traditions', 'clothes', 'bonus'];
 
-const MAP_ROUNDS = ['photos', 'geography'];
+const MAP_ROUNDS = ['photos', 'geography', 'bonus'];
 
 const QUESTIONS_PER_ROUND = 5;
 

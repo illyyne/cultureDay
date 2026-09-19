@@ -574,6 +574,15 @@
         mediaType: "photo", mediaUrl: "assets/images/clothes/poncho.jpg",
         location: { city: "Cusco", country: "Peru", lat: -13.5319, lng: -71.9675 },
         funFact: "The poncho has been worn by indigenous peoples of the Andes for over 500 years."
+      },
+      // === BONUS (1) ===
+      {
+        text: "⭐ BONUS — Where is Ericsson's Headquarters? Drop a pin!",
+        round: "bonus", order: 1,
+        choices: [], correctIndex: 0,
+        mediaType: "photo", mediaUrl: "assets/images/ericsson.jpg",
+        location: { city: "Kista", country: "Sweden", lat: 59.4049, lng: 17.9554 },
+        funFact: "Ericsson was founded in 1876 and is headquartered in Kista, Stockholm."
       }
     ];
   }
