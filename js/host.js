@@ -44,11 +44,17 @@
   }
 
   function generateQRCode() {
-    const url = window.location.href.replace('host.html', '') + '?code=' + gameCode;
+    const base = window.location.href.replace('host.html', '');
+    const url = base + '?code=' + gameCode;
     const qr = qrcode(0, 'M');
     qr.addData(url);
     qr.make();
     $('qrcode').innerHTML = qr.createSvgTag(5, 0);
+
+    const linkEl = document.createElement('div');
+    linkEl.style.cssText = 'font-size:var(--text-sm);color:var(--color-text-secondary);margin-top:var(--space-2);word-break:break-all;max-width:300px;text-align:center;';
+    linkEl.textContent = url;
+    $('qrcode').appendChild(linkEl);
   }
 
   function listenForPlayers() {

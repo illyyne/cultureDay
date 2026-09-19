@@ -1,12 +1,11 @@
-// ⚠️ Replace with your Firebase project config from console.firebase.google.com
 const FIREBASE_CONFIG = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT.firebaseapp.com",
-  databaseURL: "https://YOUR_PROJECT-default-rtdb.firebaseio.com",
-  projectId: "YOUR_PROJECT",
-  storageBucket: "YOUR_PROJECT.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyD0oRt2NfiALaJL7eyyRvP0sSvHCOtwV0M",
+  authDomain: "culture-day-quiz.firebaseapp.com",
+  databaseURL: "https://culture-day-quiz-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "culture-day-quiz",
+  storageBucket: "culture-day-quiz.firebasestorage.app",
+  messagingSenderId: "374486150988",
+  appId: "1:374486150988:web:f3d322f5c268d0b3e1e9e9"
 };
 
 firebase.initializeApp(FIREBASE_CONFIG);

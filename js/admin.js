@@ -304,155 +304,260 @@
 
   function getSeedQuestions() {
     return [
+      // === PHOTOS & PLACES (9) ===
       {
-        text: "Which country is the Taj Mahal located in?",
-        round: "photos",
+        text: "In which country can you find this famous statue?",
+        round: "photos", order: 1,
+        choices: ["Argentina", "Brazil", "Portugal", "Colombia"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/places/Christ-redempteur-brezil.jpg",
+        location: { city: "Rio de Janeiro", country: "Brazil", lat: -22.9519, lng: -43.2105 },
+        funFact: "Christ the Redeemer stands 30 meters tall and was completed in 1931."
+      },
+      {
+        text: "This flaming crater is known as the 'Door to Hell'. Where is it?",
+        round: "photos", order: 2,
+        choices: ["Kazakhstan", "Turkmenistan", "Uzbekistan", "Iran"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/places/laPorteEnferDarvazaTurkenmistan.png",
+        location: { city: "Darvaza", country: "Turkmenistan", lat: 40.2526, lng: 58.4397 },
+        funFact: "The Darvaza gas crater has been burning continuously since 1971."
+      },
+      {
+        text: "Which country is home to this ancient temple?",
+        round: "photos", order: 3,
+        choices: ["Thailand", "Cambodia", "Indonesia", "Myanmar"],
+        correctIndex: 2,
+        mediaType: "photo", mediaUrl: "assets/images/places/TempledeBorobudurIndonesie.jpg",
+        location: { city: "Magelang", country: "Indonesia", lat: -7.6079, lng: 110.2038 },
+        funFact: "Borobudur is the world's largest Buddhist temple, built in the 9th century."
+      },
+      {
+        text: "This iconic mountain is a symbol of which country?",
+        round: "photos", order: 4,
+        choices: ["South Korea", "China", "Japan", "Nepal"],
+        correctIndex: 2,
+        mediaType: "photo", mediaUrl: "assets/images/places/mont-fuji.jpg",
+        location: { city: "Fujinomiya", country: "Japan", lat: 35.3606, lng: 138.7274 },
+        funFact: "Mount Fuji is 3,776 meters high and last erupted in 1707."
+      },
+      {
+        text: "This colorful town with blue and white houses is in which country?",
+        round: "photos", order: 5,
+        choices: ["Greece", "Morocco", "Tunisia", "Turkey"],
+        correctIndex: 2,
+        mediaType: "photo", mediaUrl: "assets/images/places/sidiBouTunisia.jpg",
+        location: { city: "Sidi Bou Said", country: "Tunisia", lat: 36.8687, lng: 10.3497 },
+        funFact: "Sidi Bou Said's blue and white color scheme was established by a French baron in 1915."
+      },
+      {
+        text: "These rock-hewn churches are a UNESCO World Heritage Site. Where are they?",
+        round: "photos", order: 6,
+        choices: ["Ethiopia", "Egypt", "Jordan", "India"],
+        correctIndex: 0,
+        mediaType: "photo", mediaUrl: "assets/images/places/ÉglisedeLalibelaEthiopie.jpg",
+        location: { city: "Lalibela", country: "Ethiopia", lat: 12.0319, lng: 39.0472 },
+        funFact: "The 11 churches of Lalibela were carved from solid rock in the 12th-13th century."
+      },
+      {
+        text: "This grand mosque is one of the largest in the world. Where is it?",
+        round: "photos", order: 7,
+        choices: ["Saudi Arabia", "Qatar", "UAE", "Oman"],
+        correctIndex: 2,
+        mediaType: "photo", mediaUrl: "assets/images/places/MosqSheikhZayed.jpg",
+        location: { city: "Abu Dhabi", country: "UAE", lat: 24.4128, lng: 54.4750 },
+        funFact: "The Sheikh Zayed Grand Mosque can accommodate over 40,000 worshippers."
+      },
+      {
+        text: "These mysterious stone statues are found on which island?",
+        round: "photos", order: 8,
+        choices: ["Fiji", "Easter Island (Chile)", "Hawaii", "Madagascar"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/places/Statues de l'île de PâquesChili.jpg",
+        location: { city: "Easter Island", country: "Chile", lat: -27.1127, lng: -109.3497 },
+        funFact: "The Moai statues were carved by the Rapa Nui people between 1250 and 1500 AD."
+      },
+      {
+        text: "This ancient citadel lit up at night is in which city?",
+        round: "photos", order: 9,
+        choices: ["Rome", "Athens", "Istanbul", "Cairo"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/places/Acropole-dAthenes-la-nuit-avec-eclairage.jpeg",
+        location: { city: "Athens", country: "Greece", lat: 37.9715, lng: 23.7267 },
+        funFact: "The Acropolis of Athens was built in the 5th century BC during the Golden Age of Pericles."
+      },
+      // === MUSIC & INSTRUMENTS (7) ===
+      {
+        text: "This double-pipe wind instrument is traditional to which country?",
+        round: "music", order: 1,
+        choices: ["Turkey", "Egypt", "Iran", "Morocco"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/instruments/ArghulEgypte.jpg",
+        location: { city: "Cairo", country: "Egypt", lat: 30.0444, lng: 31.2357 },
+        funFact: "The arghul has been played in Egypt for over 5,000 years."
+      },
+      {
+        text: "This plucked string instrument called the kantele is from which country?",
+        round: "music", order: 2,
+        choices: ["Estonia", "Finland", "Norway", "Latvia"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/instruments/KanteleFinland.jpg",
+        location: { city: "Helsinki", country: "Finland", lat: 60.1699, lng: 24.9384 },
+        funFact: "The kantele is the national instrument of Finland, featured in the epic Kalevala."
+      },
+      {
+        text: "The djembe drum originates from which West African country?",
+        round: "music", order: 3,
+        choices: ["Senegal", "Mali", "Guinea", "Nigeria"],
+        correctIndex: 2,
+        mediaType: "photo", mediaUrl: "assets/images/instruments/djembe-Guinée.webp",
+        location: { city: "Conakry", country: "Guinea", lat: 9.6412, lng: -13.5784 },
+        funFact: "The djembe originated with the Mandinka people around the 12th century."
+      },
+      {
+        text: "This triangular string instrument called the balalaika is from which country?",
+        round: "music", order: 4,
+        choices: ["Ukraine", "Poland", "Russia", "Belarus"],
+        correctIndex: 2,
+        mediaType: "photo", mediaUrl: "assets/images/instruments/balalaika-instrument-Russie.webp",
+        location: { city: "Moscow", country: "Russia", lat: 55.7558, lng: 37.6173 },
+        funFact: "The balalaika became a symbol of Russian folk music in the 18th century."
+      },
+      {
+        text: "The sitar is an iconic instrument from which country?",
+        round: "music", order: 5,
         choices: ["Pakistan", "India", "Bangladesh", "Nepal"],
         correctIndex: 1,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Agra", country: "India", lat: 27.1751, lng: 78.0421 },
-        funFact: "The Taj Mahal was built between 1632 and 1653 by Mughal Emperor Shah Jahan.",
-        order: 1
-      },
-      {
-        text: "Where can you find the Machu Picchu ruins?",
-        round: "photos",
-        choices: ["Mexico", "Colombia", "Peru", "Bolivia"],
-        correctIndex: 2,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Cusco", country: "Peru", lat: -13.1631, lng: -72.545 },
-        funFact: "Machu Picchu was built in the 15th century and was unknown to the outside world until 1911.",
-        order: 2
-      },
-      {
-        text: "Which country is the Great Wall located in?",
-        round: "photos",
-        choices: ["Japan", "South Korea", "China", "Mongolia"],
-        correctIndex: 2,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Beijing", country: "China", lat: 40.4319, lng: 116.5704 },
-        funFact: "The Great Wall stretches over 21,000 km and was built over many centuries.",
-        order: 3
-      },
-      {
-        text: "The Colosseum is an iconic landmark of which city?",
-        round: "photos",
-        choices: ["Athens", "Rome", "Istanbul", "Barcelona"],
-        correctIndex: 1,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Rome", country: "Italy", lat: 41.8902, lng: 12.4922 },
-        funFact: "The Colosseum could hold between 50,000 and 80,000 spectators.",
-        order: 4
-      },
-      {
-        text: "Angkor Wat is a famous temple complex in which country?",
-        round: "photos",
-        choices: ["Thailand", "Vietnam", "Cambodia", "Laos"],
-        correctIndex: 2,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Siem Reap", country: "Cambodia", lat: 13.4125, lng: 103.8670 },
-        funFact: "Angkor Wat is the largest religious monument in the world.",
-        order: 5
-      },
-      {
-        text: "Which country does Samba music originate from?",
-        round: "music",
-        choices: ["Argentina", "Brazil", "Cuba", "Portugal"],
-        correctIndex: 1,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Rio de Janeiro", country: "Brazil", lat: -22.9068, lng: -43.1729 },
-        funFact: "Samba originated in Rio's Afro-Brazilian communities in the early 20th century.",
-        order: 1
-      },
-      {
-        text: "Flamenco is a traditional art form from which country?",
-        round: "music",
-        choices: ["Mexico", "Spain", "Italy", "Portugal"],
-        correctIndex: 1,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Seville", country: "Spain", lat: 37.3891, lng: -5.9845 },
-        funFact: "Flamenco was inscribed as a UNESCO Intangible Cultural Heritage in 2010.",
-        order: 2
-      },
-      {
-        text: "The sitar is a traditional instrument from which country?",
-        round: "music",
-        choices: ["India", "Turkey", "Iran", "Egypt"],
-        correctIndex: 0,
-        mediaType: null, mediaUrl: null,
+        mediaType: "photo", mediaUrl: "assets/images/instruments/SitarInde.jpg",
         location: { city: "Delhi", country: "India", lat: 28.6139, lng: 77.209 },
-        funFact: "Ravi Shankar popularized the sitar worldwide through his collaborations with The Beatles.",
-        order: 3
+        funFact: "Ravi Shankar popularized the sitar worldwide through his collaboration with The Beatles."
       },
       {
-        text: "K-Pop music originates from which country?",
-        round: "music",
-        choices: ["Japan", "South Korea", "China", "Taiwan"],
+        text: "The bagpipes (cornemuse) are most associated with which country?",
+        round: "music", order: 6,
+        choices: ["Ireland", "Scotland", "Wales", "England"],
         correctIndex: 1,
-        mediaType: null, mediaUrl: null,
+        mediaType: "photo", mediaUrl: "assets/images/instruments/CornemuseEcosse.jpg",
+        location: { city: "Edinburgh", country: "Scotland", lat: 55.9533, lng: -3.1883 },
+        funFact: "The Great Highland Bagpipe has been used in Scottish military for over 500 years."
+      },
+      {
+        text: "This two-stringed bowed instrument called the erhu is from which country?",
+        round: "music", order: 7,
+        choices: ["Japan", "Vietnam", "China", "Korea"],
+        correctIndex: 2,
+        mediaType: "photo", mediaUrl: "assets/images/instruments/Erhu_in_the_MetsChina.jpg",
+        location: { city: "Beijing", country: "China", lat: 39.9042, lng: 116.4074 },
+        funFact: "The erhu has been played for over 1,000 years and is often called the Chinese violin."
+      },
+      // === FOOD & CUISINE (12) ===
+      {
+        text: "This burrito is a traditional dish from which country?",
+        round: "food", order: 1,
+        choices: ["Spain", "Mexico", "Guatemala", "Cuba"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/dishes/burrito_mexico.jpg",
+        location: { city: "Ciudad Juárez", country: "Mexico", lat: 31.6904, lng: -106.4245 },
+        funFact: "The burrito is believed to have originated in Northern Mexico in the 19th century."
+      },
+      {
+        text: "This glass noodle stir-fry dish called Japchae is from which country?",
+        round: "food", order: 2,
+        choices: ["Japan", "South Korea", "Thailand", "Philippines"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/dishes/Japchae-Korean.webp",
         location: { city: "Seoul", country: "South Korea", lat: 37.5665, lng: 126.978 },
-        funFact: "The global K-Pop industry is worth over $10 billion.",
-        order: 4
+        funFact: "Japchae was originally created for a royal banquet in the 17th century."
       },
       {
-        text: "Reggae music originated on which Caribbean island?",
-        round: "music",
-        choices: ["Cuba", "Trinidad", "Jamaica", "Barbados"],
+        text: "Fish and chips is a beloved national dish of which country?",
+        round: "food", order: 3,
+        choices: ["Australia", "United Kingdom", "Ireland", "Netherlands"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/dishes/Fish_and_chips_UK.jpg",
+        location: { city: "London", country: "United Kingdom", lat: 51.5074, lng: -0.1278 },
+        funFact: "The first fish and chip shop in the UK opened in the 1860s."
+      },
+      {
+        text: "Falafels are a popular street food originating from which region?",
+        round: "food", order: 4,
+        choices: ["Turkey", "Lebanon", "Greece", "Iran"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/dishes/falafelsLiban.jpg",
+        location: { city: "Beirut", country: "Lebanon", lat: 33.8938, lng: 35.5018 },
+        funFact: "Falafels are one of the most widely consumed Middle Eastern foods worldwide."
+      },
+      {
+        text: "This spiced rice dish called Kabsa is the national dish of which country?",
+        round: "food", order: 5,
+        choices: ["Yemen", "Saudi Arabia", "Oman", "Iraq"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/dishes/KabsaKSA.jpg",
+        location: { city: "Riyadh", country: "Saudi Arabia", lat: 24.7136, lng: 46.6753 },
+        funFact: "Kabsa is the most popular dish in Saudi Arabia, often served for gatherings."
+      },
+      {
+        text: "This black bean stew called Feijoada is the national dish of which country?",
+        round: "food", order: 6,
+        choices: ["Portugal", "Brazil", "Angola", "Mozambique"],
+        correctIndex: 1,
+        mediaType: "photo", mediaUrl: "assets/images/dishes/FeijoadaBrezil.jpeg",
+        location: { city: "Rio de Janeiro", country: "Brazil", lat: -22.9068, lng: -43.1729 },
+        funFact: "Feijoada is traditionally served on Wednesdays and Saturdays in Brazilian restaurants."
+      },
+      {
+        text: "Bunny chow — a hollowed bread loaf filled with curry — is from which country?",
+        round: "food", order: 7,
+        choices: ["India", "Jamaica", "South Africa", "Australia"],
         correctIndex: 2,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Kingston", country: "Jamaica", lat: 18.0179, lng: -76.8099 },
-        funFact: "Bob Marley is the most iconic reggae artist and a global cultural icon.",
-        order: 5
+        mediaType: "photo", mediaUrl: "assets/images/dishes/BunnychowAfriqueSud.jpeg",
+        location: { city: "Durban", country: "South Africa", lat: -29.8587, lng: 31.0218 },
+        funFact: "Bunny chow was created by the Indian community in Durban in the 1940s."
       },
       {
-        text: "Which country does sushi originally come from?",
-        round: "food",
-        choices: ["China", "South Korea", "Japan", "Thailand"],
+        text: "These meatballs (köttbullar) are a famous dish from which country?",
+        round: "food", order: 8,
+        choices: ["Denmark", "Norway", "Sweden", "Finland"],
         correctIndex: 2,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Tokyo", country: "Japan", lat: 35.6762, lng: 139.6503 },
-        funFact: "The original sushi was fermented fish preserved in rice, quite different from modern sushi.",
-        order: 1
+        mediaType: "photo", mediaUrl: "assets/images/dishes/Swedish-meatballs-kottbullar.jpg",
+        location: { city: "Stockholm", country: "Sweden", lat: 59.3293, lng: 18.0686 },
+        funFact: "Swedish meatballs became globally famous thanks to IKEA's food courts."
       },
       {
-        text: "Tacos are a traditional food from which country?",
-        round: "food",
-        choices: ["Spain", "Mexico", "Brazil", "Argentina"],
-        correctIndex: 1,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Mexico City", country: "Mexico", lat: 19.4326, lng: -99.1332 },
-        funFact: "Tacos have been a staple in Mexico since pre-Columbian times.",
-        order: 2
+        text: "Poutine — fries with cheese curds and gravy — is from which country?",
+        round: "food", order: 9,
+        choices: ["Belgium", "USA", "Canada", "France"],
+        correctIndex: 2,
+        mediaType: "photo", mediaUrl: "assets/images/dishes/poutineCanada.jpg",
+        location: { city: "Québec", country: "Canada", lat: 46.8139, lng: -71.2082 },
+        funFact: "Poutine originated in rural Québec in the late 1950s."
       },
       {
-        text: "Pad Thai is the national dish of which country?",
-        round: "food",
-        choices: ["Vietnam", "Thailand", "Malaysia", "Indonesia"],
+        text: "This tagine dish with chicken and olives is from which country?",
+        round: "food", order: 10,
+        choices: ["Algeria", "Morocco", "Tunisia", "Libya"],
         correctIndex: 1,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Bangkok", country: "Thailand", lat: 13.7563, lng: 100.5018 },
-        funFact: "Pad Thai was promoted as a national dish in the 1930s to foster Thai identity.",
-        order: 3
-      },
-      {
-        text: "Couscous is a traditional dish from which region?",
-        round: "food",
-        choices: ["Middle East", "North Africa", "Central Asia", "Southern Europe"],
-        correctIndex: 1,
-        mediaType: null, mediaUrl: null,
+        mediaType: "photo", mediaUrl: "assets/images/dishes/TajinePouletMAroc.png",
         location: { city: "Marrakech", country: "Morocco", lat: 31.6295, lng: -7.9811 },
-        funFact: "The knowledge and practices around couscous were inscribed by UNESCO in 2020.",
-        order: 4
+        funFact: "The tagine is both the name of the dish and the conical clay pot it's cooked in."
       },
       {
-        text: "Which country is the origin of croissants?",
-        round: "food",
-        choices: ["France", "Austria", "Belgium", "Switzerland"],
+        text: "This layered rice and lentil dish called Koshari is the national dish of which country?",
+        round: "food", order: 11,
+        choices: ["Sudan", "Egypt", "Syria", "Lebanon"],
         correctIndex: 1,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Vienna", country: "Austria", lat: 48.2082, lng: 16.3738 },
-        funFact: "Despite being associated with France, croissants were inspired by the Austrian Kipferl.",
-        order: 5
+        mediaType: "photo", mediaUrl: "assets/images/dishes/kosharyEgypte.jpg",
+        location: { city: "Cairo", country: "Egypt", lat: 30.0444, lng: 31.2357 },
+        funFact: "Koshari is Egypt's most popular street food, mixing Italian, Indian and Arab influences."
+      },
+      {
+        text: "This communal hot pot is a traditional way of eating in which country?",
+        round: "food", order: 12,
+        choices: ["Japan", "Vietnam", "China", "Mongolia"],
+        correctIndex: 2,
+        mediaType: "photo", mediaUrl: "assets/images/dishes/hotpotChina.jpg",
+        location: { city: "Chongqing", country: "China", lat: 29.4316, lng: 106.9123 },
+        funFact: "Hot pot has been a Chinese tradition for over 1,000 years, especially popular in Sichuan."
       }
     ];
   }
