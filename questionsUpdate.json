@@ -7,7 +7,7 @@
       "correctIndex": 1,
       "mediaType": "photo", "mediaUrl": "assets/images/places/Christ-redempteur-brezil.jpg",
       "location": { "city": "Rio de Janeiro", "country": "Brazil", "lat": -22.9519, "lng": -43.2105 },
-      "funFact": "Christ the Redeemer stands 30 meters tall and was completed in 1931."
+      "funFact": "Christ the Redeemer stands 30 meters tall and was completed in 1931. It is an Art Deco statue of Jesus in Rio de Janeiro, Brazil, created by French-Polish sculptor Paul Landowski and built by Brazilian engineer Heitor da Silva Costa, in collaboration with French engineer Albert Caquot and Romanian sculptor Gheorghe Leonida who sculpted the face."
     },
     {
       "text": "This flaming crater is known as the 'Door to Hell'. Where is it?",
@@ -25,7 +25,7 @@
       "correctIndex": 2,
       "mediaType": "photo", "mediaUrl": "assets/images/places/TempledeBorobudurIndonesie.jpg",
       "location": { "city": "Magelang", "country": "Indonesia", "lat": -7.6079, "lng": 110.2038 },
-      "funFact": "Borobudur is the world's largest Buddhist temple, built in the 9th century."
+      "funFact": "Borobudur is the world's largest Buddhist temple, built in the 9th century in Indonesia, Constructed of gray andesite-like stone,[1] the temple consists of nine stacked platforms, six square and three circular, topped by a central dome. It is decorated with 2,672 relief panels and originally 504 Buddha statues."
     },
     {
       "text": "This iconic mountain is a symbol of which country?",
@@ -61,7 +61,7 @@
       "correctIndex": 1,
       "mediaType": "photo", "mediaUrl": "assets/images/dishes/Japchae-Korean.webp",
       "location": { "city": "Seoul", "country": "South Korea", "lat": 37.5665, "lng": 126.978 },
-      "funFact": "Japchae was originally created for a royal banquet in the 17th century."
+      "funFact": "Japchae was originally created for a royal banquet in the 17th century in Korea."
     },
     {
       "text": "Fish and chips is a beloved national dish of which country?",
@@ -127,13 +127,13 @@
       "funFact": "Rio Carnival attracts over 2 million people per day during celebrations."
     },
     {
-      "text": "The Lantern Festival marks the end of Chinese New Year in which country?",
+      "text": "The Lantern Festival marks the end of a New Year in which country?",
       "round": "traditions", "order": 5,
       "choices": ["Japan", "China", "Vietnam", "South Korea"],
       "correctIndex": 1,
       "mediaType": "photo", "mediaUrl": "assets/images/culture/Lantern_Festival.jpg",
       "location": { "city": "Beijing", "country": "China", "lat": 39.9042, "lng": 116.4074 },
-      "funFact": "The Lantern Festival dates back over 2,000 years to the Han Dynasty."
+      "funFact": "The Lantern Festival dates back over 2,000 years to the Han Dynasty in China."
     },
     {
       "text": "The kimono is the traditional garment of which country?",

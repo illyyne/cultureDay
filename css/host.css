@@ -464,3 +464,77 @@ body {
   animation: fadeIn 0.6s var(--ease-out) 0.3s forwards;
   opacity: 0;
 }
+
+/* Streak callout */
+.streak-callout {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9000;
+  font-family: var(--font-display);
+  font-size: 3rem;
+  color: white;
+  text-align: center;
+  pointer-events: none;
+  text-shadow: 0 0 30px rgba(255, 100, 0, 0.8), 0 0 60px rgba(255, 100, 0, 0.4);
+}
+
+.streak-callout.active {
+  display: block;
+  animation: streakPop 2s ease-out forwards;
+}
+
+@keyframes streakPop {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.3); }
+  15% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+  30% { transform: translate(-50%, -50%) scale(1); }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -60%) scale(1.1); }
+}
+
+/* Fastest player callout */
+.fastest-callout {
+  display: none;
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9000;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--host-accent);
+  background: var(--host-surface);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  border: 2px solid var(--host-accent);
+  white-space: nowrap;
+}
+
+.fastest-callout.active {
+  display: block;
+  animation: fastestSlide 3s ease-out forwards;
+}
+
+@keyframes fastestSlide {
+  0% { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  15% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  75% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* Leaderboard fastest badge */
+.leaderboard-fastest {
+  font-size: var(--text-sm);
+  color: #FFD700;
+  margin-left: var(--space-1);
+}
+
+/* Leaderboard streak badge */
+.leaderboard-streak {
+  font-size: var(--text-sm);
+  color: #FF6B35;
+  margin-left: var(--space-2);
+}

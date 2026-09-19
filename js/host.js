@@ -14,6 +14,8 @@
   let revealTimeout = null;
   let revealCountdownInterval = null;
   let isTransitioningToReveal = false;
+  let fastestPlayer = null;
+  let streakPlayers = [];
 
   const $ = id => document.getElementById(id);
 
@@ -248,6 +250,9 @@
     const timerMs = effectiveTimer * 1000;
     const multiplier = isDouble ? SCORING.DOUBLE_POINTS_MULTIPLIER : 1;
     const updates = {};
+    let bestTime = Infinity;
+    fastestPlayer = null;
+    streakPlayers = [];
 
     for (const [pid, answer] of Object.entries(answers)) {
       const player = players[pid];
@@ -265,6 +270,8 @@
           updates['players/' + pid + '/lastPoints'] = pts;
           updates['players/' + pid + '/lastCorrect'] = dist <= 500;
           updates['players/' + pid + '/lastDistance'] = Math.round(dist);
+          if (dist <= 500 && responseTime < bestTime) { bestTime = responseTime; fastestPlayer = player.name; }
+          if (result.newStreak >= SCORING.STREAK_THRESHOLD) streakPlayers.push({ name: player.name, streak: result.newStreak });
         } else {
           updates['players/' + pid + '/streak'] = 0;
           updates['players/' + pid + '/lastPoints'] = 0;
@@ -280,6 +287,8 @@
         updates['players/' + pid + '/lastPoints'] = pts;
         updates['players/' + pid + '/lastCorrect'] = isCorrect;
         updates['players/' + pid + '/lastDistance'] = null;
+        if (isCorrect && responseTime < bestTime) { bestTime = responseTime; fastestPlayer = player.name; }
+        if (result.newStreak >= SCORING.STREAK_THRESHOLD) streakPlayers.push({ name: player.name, streak: result.newStreak });
       }
     }
 
@@ -347,8 +356,21 @@
       $('reveal-fun-fact').style.display = 'none';
     }
 
-    // Right: leaderboard
-    renderLeaderboard('leaderboard-list', players, 8);
+    // Right: leaderboard (with fastest + streak badges)
+    renderLeaderboard('leaderboard-list', players, 8, fastestPlayer, streakPlayers);
+
+    // Streak callout
+    showStreakCallouts(streakPlayers);
+
+    // Fastest player callout
+    if (fastestPlayer) {
+      const el = $('fastest-callout');
+      el.textContent = '⚡ Fastest: ' + fastestPlayer;
+      el.classList.remove('active');
+      void el.offsetWidth;
+      el.classList.add('active');
+      setTimeout(() => el.classList.remove('active'), 3000);
+    }
 
     // Next button + auto-advance
     const isLast = currentQIndex >= questions.length - 1;
@@ -392,6 +414,18 @@
       if (revealSecondsLeft <= 0) clearInterval(revealCountdownInterval);
     }, 1000);
     revealTimeout = setTimeout(advanceToNext, 20000);
+  }
+
+  function showStreakCallouts(streaks) {
+    if (!streaks.length) return;
+    const el = $('streak-callout');
+    const best = streaks.reduce((a, b) => b.streak > a.streak ? b : a);
+    const flames = '🔥'.repeat(Math.min(best.streak, 7));
+    el.textContent = flames + ' ' + best.name + ' is on fire! ' + best.streak + ' streak! ' + flames;
+    el.classList.remove('active');
+    void el.offsetWidth;
+    el.classList.add('active');
+    setTimeout(() => el.classList.remove('active'), 2500);
   }
 
   // === FINISHED ===

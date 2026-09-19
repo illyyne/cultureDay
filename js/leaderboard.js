@@ -1,6 +1,9 @@
-function renderLeaderboard(containerId, players, maxEntries) {
+function renderLeaderboard(containerId, players, maxEntries, fastestName, streakList) {
   const container = document.getElementById(containerId);
   if (!container) return;
+
+  const streakMap = {};
+  if (streakList) streakList.forEach(s => { streakMap[s.name] = s.streak; });
 
   const sorted = Object.entries(players)
     .map(([id, p]) => ({ id, ...p }))
@@ -17,10 +20,15 @@ function renderLeaderboard(containerId, players, maxEntries) {
     else if (rank === 3) rankDisplay = '🥉';
 
     const pointsChange = p.lastPoints > 0 ? '+' + p.lastPoints.toLocaleString() : '';
+    const isFastest = fastestName && p.name === fastestName;
+    const streak = streakMap[p.name] || 0;
 
     return '<div class="leaderboard-entry" style="animation-delay:' + (i * 0.1) + 's">' +
       '<div class="leaderboard-rank">' + rankDisplay + '</div>' +
-      '<div class="leaderboard-name">' + escapeHtmlLB(p.name) + '</div>' +
+      '<div class="leaderboard-name">' + escapeHtmlLB(p.name) +
+        (isFastest ? '<span class="leaderboard-fastest"> ⚡</span>' : '') +
+        (streak >= 3 ? '<span class="leaderboard-streak"> 🔥' + streak + '</span>' : '') +
+      '</div>' +
       '<div>' +
         '<div class="leaderboard-score">' + (p.score || 0).toLocaleString() + '</div>' +
         (pointsChange ? '<div class="leaderboard-points-change">' + pointsChange + '</div>' : '') +

@@ -10,8 +10,6 @@ const STATES = {
 const ROUNDS = {
   PHOTOS: 'photos',
   FOOD: 'food',
-  HISTORY: 'history',
-  GEOGRAPHY: 'geography',
   TRADITIONS: 'traditions',
   CLOTHES: 'clothes',
   BONUS: 'bonus'
@@ -20,8 +18,6 @@ const ROUNDS = {
 const ROUND_LABELS = {
   photos: 'Photos & Places',
   food: 'Food & Cuisine',
-  history: 'History',
-  geography: 'Geography',
   traditions: 'Traditions & Festivals',
   clothes: 'Clothes & Fashion',
   bonus: 'Bonus'
@@ -30,16 +26,14 @@ const ROUND_LABELS = {
 const ROUND_ICONS = {
   photos: '📸',
   food: '🍜',
-  history: '📜',
-  geography: '🌍',
   traditions: '🎭',
   clothes: '👘',
   bonus: '⭐'
 };
 
-const ROUND_ORDER = ['photos', 'food', 'history', 'geography', 'traditions', 'clothes', 'bonus'];
+const ROUND_ORDER = ['photos', 'food', 'traditions', 'clothes', 'bonus'];
 
-const MAP_ROUNDS = ['photos', 'geography', 'bonus'];
+const MAP_ROUNDS = ['photos', 'bonus'];
 
 const QUESTIONS_PER_ROUND = 5;
 

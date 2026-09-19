@@ -259,15 +259,18 @@
         return alert('Invalid format. Expected { "questions": [...] } or [...]');
       }
 
-      let count = 0;
+      if (!confirm('This will REPLACE all existing questions with the imported set (' + questions.length + ' questions). Continue?')) return;
+
+      const batch = {};
       for (const q of questions) {
+        const key = db.ref('questions').push().key;
         q.createdAt = firebase.database.ServerValue.TIMESTAMP;
         q.updatedAt = firebase.database.ServerValue.TIMESTAMP;
-        await db.ref('questions').push(q);
-        count++;
+        batch[key] = q;
       }
+      await db.ref('questions').set(batch);
 
-      alert('Imported ' + count + ' questions!');
+      alert('Replaced with ' + questions.length + ' questions!');
     } catch (err) {
       alert('Import failed: ' + err.message);
     }
@@ -291,17 +294,16 @@
   $('btn-seed').addEventListener('click', async () => {
     if (!confirm('This will REPLACE all existing questions with the sample set. Continue?')) return;
 
-    await db.ref('questions').remove();
-
     const seed = getSeedQuestions();
-    let count = 0;
+    const batch = {};
     for (const q of seed) {
+      const key = db.ref('questions').push().key;
       q.createdAt = firebase.database.ServerValue.TIMESTAMP;
       q.updatedAt = firebase.database.ServerValue.TIMESTAMP;
-      await db.ref('questions').push(q);
-      count++;
+      batch[key] = q;
     }
-    alert('Replaced with ' + count + ' sample questions!');
+    await db.ref('questions').set(batch);
+    alert('Replaced with ' + seed.length + ' sample questions!');
   });
 
   function getSeedQuestions() {
@@ -397,93 +399,6 @@
         mediaType: "photo", mediaUrl: "assets/images/dishes/hotpotChina.jpg",
         location: { city: "Chongqing", country: "China", lat: 29.4316, lng: 106.9123 },
         funFact: "Hot pot has been a Chinese tradition for over 1,000 years, especially popular in Sichuan."
-      },
-      // === HISTORY (5) ===
-      {
-        text: "The ancient city of Petra, carved into rose-red cliffs, is in which country?",
-        round: "history", order: 1,
-        choices: ["Egypt", "Jordan", "Lebanon", "Iraq"],
-        correctIndex: 1,
-        mediaType: "photo", mediaUrl: "assets/images/geographie/Petra.webp",
-        location: { city: "Petra", country: "Jordan", lat: 30.3285, lng: 35.4444 },
-        funFact: "Petra was the capital of the Nabataean Kingdom and was lost to the Western world for centuries."
-      },
-      {
-        text: "The Aztec Empire was centered in what is now which country?",
-        round: "history", order: 2,
-        choices: ["Guatemala", "Peru", "Mexico", "Colombia"],
-        correctIndex: 2,
-        mediaType: "photo", mediaUrl: "assets/images/geographie/TheAztecEmpire.jpg",
-        location: { city: "Mexico City", country: "Mexico", lat: 19.4326, lng: -99.1332 },
-        funFact: "The Aztec capital Tenochtitlan was built on an island in Lake Texcoco in 1325."
-      },
-      {
-        text: "The ancient kingdom of Aksum was located in which modern-day country?",
-        round: "history", order: 3,
-        choices: ["Ethiopia", "Sudan", "Somalia", "Kenya"],
-        correctIndex: 0,
-        mediaType: "photo", mediaUrl: "assets/images/geographie/Aksum.jpg",
-        location: { city: "Axum", country: "Ethiopia", lat: 14.121, lng: 38.7469 },
-        funFact: "The Kingdom of Aksum was one of the four great powers of the ancient world."
-      },
-      {
-        text: "The Silk Road connected China with which other major civilization?",
-        round: "history", order: 4,
-        choices: ["Roman Empire", "Mayan Empire", "Khmer Empire", "Zulu Kingdom"],
-        correctIndex: 0,
-        mediaType: "photo", mediaUrl: "assets/images/geographie/silkRoad.webp",
-        location: { city: "Xi'an", country: "China", lat: 34.3416, lng: 108.9398 },
-        funFact: "The Silk Road was not a single road but a network of trade routes spanning over 6,400 km."
-      },
-      {
-        text: "The Great Zimbabwe ruins are found in which African country?",
-        round: "history", order: 5,
-        choices: ["Mozambique", "Zimbabwe", "Zambia", "Botswana"],
-        correctIndex: 1,
-        mediaType: null, mediaUrl: null,
-        location: { city: "Masvingo", country: "Zimbabwe", lat: -20.2674, lng: 30.9327 },
-        funFact: "Great Zimbabwe was the capital of a thriving trading empire from the 11th to 15th century."
-      },
-      // === GEOGRAPHY (5, map-guessed) ===
-      {
-        text: "Where is the Sahara Desert located?",
-        round: "geography", order: 1,
-        choices: [], correctIndex: 0,
-        mediaType: "photo", mediaUrl: "assets/images/geographie/sahara.jpeg",
-        location: { city: "Sahara", country: "North Africa", lat: 23.4162, lng: 25.6628 },
-        funFact: "The Sahara is the largest hot desert in the world, almost as large as the United States."
-      },
-      {
-        text: "Can you locate the Amazon River on the map?",
-        round: "geography", order: 2,
-        choices: [], correctIndex: 0,
-        mediaType: "photo", mediaUrl: "assets/images/geographie/AmazonRiver.jpg",
-        location: { city: "Manaus", country: "Brazil", lat: -3.119, lng: -60.0217 },
-        funFact: "The Amazon River carries more water than the next seven largest rivers combined."
-      },
-      {
-        text: "Where is the Himalaya mountain range?",
-        round: "geography", order: 3,
-        choices: [], correctIndex: 0,
-        mediaType: "photo", mediaUrl: "assets/images/geographie/Himalaya.jpg",
-        location: { city: "Everest Region", country: "Nepal", lat: 27.9881, lng: 86.925 },
-        funFact: "The Himalayas contain 9 of the 10 highest peaks in the world, including Mount Everest."
-      },
-      {
-        text: "Where is the Great Barrier Reef?",
-        round: "geography", order: 4,
-        choices: [], correctIndex: 0,
-        mediaType: "photo", mediaUrl: "assets/images/geographie/GreatBarrierReef.webp",
-        location: { city: "Cairns", country: "Australia", lat: -18.2871, lng: 147.6992 },
-        funFact: "The Great Barrier Reef is the largest living structure on Earth, visible from space."
-      },
-      {
-        text: "Can you locate Lake Baikal on the map?",
-        round: "geography", order: 5,
-        choices: [], correctIndex: 0,
-        mediaType: "photo", mediaUrl: "assets/images/geographie/exploring_lake_baikal_1050x700.avif",
-        location: { city: "Irkutsk", country: "Russia", lat: 53.5587, lng: 108.1650 },
-        funFact: "Lake Baikal is the deepest and oldest freshwater lake in the world."
       },
       // === TRADITIONS & FESTIVALS (5) ===
       {
