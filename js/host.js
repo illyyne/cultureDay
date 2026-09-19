@@ -96,17 +96,29 @@
   });
 
   // === STATE MACHINE (simplified: QUESTION → REVEAL → next QUESTION → FINISHED) ===
+  let questionStartTime = 0;
+
   async function transitionTo(state) {
-    await gameRef.update({ state });
     switch (state) {
-      case STATES.QUESTION: enterQuestion(); break;
-      case STATES.REVEAL: enterReveal(); break;
-      case STATES.FINISHED: enterFinished(); break;
+      case STATES.QUESTION:
+        // enterQuestion writes state + metadata in one atomic update
+        enterQuestion();
+        break;
+      case STATES.REVEAL:
+        await gameRef.update({ state });
+        enterReveal();
+        break;
+      case STATES.FINISHED:
+        await gameRef.update({ state });
+        enterFinished();
+        break;
+      default:
+        await gameRef.update({ state });
     }
   }
 
   // === QUESTION ===
-  function enterQuestion() {
+  async function enterQuestion() {
     isTransitioningToReveal = false;
     clearTimeout(revealTimeout);
     clearInterval(revealCountdownInterval);
@@ -154,8 +166,13 @@
     $('q-answer-count').style.display = 'flex';
 
     const timerMs = effectiveTimer * 1000;
-    const timerEnd = getServerTime() + timerMs;
-    gameRef.update({
+    questionStartTime = getServerTime();
+    const timerEnd = questionStartTime + timerMs;
+
+    // Single atomic write: state + all question metadata together
+    // Prevents race where player sees state change before round/timer are set
+    await gameRef.update({
+      state: STATES.QUESTION,
       timerEnd, timerDuration: effectiveTimer,
       currentQuestionIndex: currentQIndex,
       currentRound: q.round,
@@ -230,7 +247,7 @@
       const player = players[pid];
       if (!player) continue;
       const currentStreak = player.streak || 0;
-      const responseTime = answer.answeredAt ? Math.max(0, answer.answeredAt - (getServerTime() - timerMs)) : timerMs;
+      const responseTime = answer.answeredAt ? Math.max(0, Math.min(answer.answeredAt - questionStartTime, timerMs)) : timerMs;
 
       if (isMap) {
         if (answer.lat != null && answer.lng != null && question.location) {
@@ -269,6 +286,12 @@
       }
     }
 
+    // Guard against NaN — Firebase rejects NaN and would fail the entire update
+    for (const key of Object.keys(updates)) {
+      if (typeof updates[key] === 'number' && isNaN(updates[key])) {
+        updates[key] = 0;
+      }
+    }
     if (Object.keys(updates).length > 0) await gameRef.update(updates);
   }
 
@@ -330,6 +353,7 @@
     function advanceToNext() {
       clearTimeout(revealTimeout);
       clearInterval(revealCountdownInterval);
+      if (leafletMap) { leafletMap.remove(); leafletMap = null; }
       if (isLast) {
         transitionTo(STATES.FINISHED);
       } else {
