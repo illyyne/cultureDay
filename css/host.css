@@ -242,23 +242,65 @@ body {
   right: var(--space-6);
 }
 
+/* Split reveal + leaderboard */
+.reveal-split {
+  flex-direction: row !important;
+  align-items: stretch !important;
+  justify-content: stretch !important;
+  gap: var(--space-6);
+  padding: var(--space-6) !important;
+}
+
+.reveal-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  overflow-y: auto;
+}
+
+.reveal-right {
+  width: 350px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--host-surface);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  overflow-y: auto;
+}
+
+/* Double points badge */
+.host-double-badge {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  color: var(--host-bg);
+  background: var(--host-accent);
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--radius-full);
+  animation: pulse 1s ease-in-out infinite;
+  text-align: center;
+}
+
 /* Map */
 .map-container {
   width: 100%;
   max-width: 600px;
-  height: 300px;
+  height: 250px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  margin-top: var(--space-4);
+  margin-top: var(--space-3);
   animation: slideUp var(--duration-slow) var(--ease-out);
 }
 
 .fun-fact {
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   color: var(--color-accent-light);
   font-style: italic;
-  margin-top: var(--space-4);
-  max-width: 800px;
+  margin-top: var(--space-2);
+  max-width: 600px;
   text-align: center;
 }
 
@@ -269,9 +311,9 @@ body {
 }
 
 .leaderboard-title {
-  font-size: var(--text-3xl);
+  font-size: var(--text-2xl);
   text-align: center;
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-4);
   color: var(--host-accent);
 }
 

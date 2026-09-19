@@ -50,6 +50,7 @@
       <span id="q-counter" class="question-counter"></span>
     </div>
     <div class="question-body">
+      <div id="q-double-badge" class="host-double-badge" style="display:none">⚡ DOUBLE POINTS ⚡</div>
       <h2 id="q-text" class="question-text"></h2>
       <img id="q-image" class="question-media" style="display:none" alt="Question media">
       <div id="q-audio-container" class="question-audio-container" style="display:none">
@@ -73,25 +74,20 @@
     </div>
   </div>
 
-  <!-- ANSWERS (distribution) -->
-  <div id="screen-answers" class="screen">
-    <h2 class="question-text" id="answers-q-text"></h2>
-    <div id="answer-bars" class="answer-bars"></div>
-  </div>
-
-  <!-- REVEAL -->
-  <div id="screen-reveal" class="screen">
-    <h2 class="question-text" id="reveal-q-text" style="margin-bottom:var(--space-4)"></h2>
-    <div id="reveal-choices" class="question-choices" style="max-width:1200px;width:100%"></div>
-    <div id="reveal-map" class="map-container"></div>
-    <p id="reveal-fun-fact" class="fun-fact"></p>
-    <button id="btn-show-leaderboard" class="btn btn-accent host-nav-btn">Show Leaderboard →</button>
-  </div>
-
-  <!-- LEADERBOARD -->
-  <div id="screen-leaderboard" class="screen">
-    <h1 class="leaderboard-title">Leaderboard</h1>
-    <div id="leaderboard-list" class="leaderboard-container"></div>
+  <!-- REVEAL + LEADERBOARD (combined split screen) -->
+  <div id="screen-reveal" class="screen reveal-split">
+    <div class="reveal-left">
+      <div id="reveal-double-badge" class="host-double-badge" style="display:none">⚡ DOUBLE POINTS ⚡</div>
+      <h2 class="question-text" id="reveal-q-text" style="margin-bottom:var(--space-3)"></h2>
+      <div id="reveal-choices" class="question-choices" style="max-width:600px;width:100%"></div>
+      <div id="answer-bars" class="answer-bars" style="max-width:600px"></div>
+      <div id="reveal-map" class="map-container"></div>
+      <p id="reveal-fun-fact" class="fun-fact"></p>
+    </div>
+    <div class="reveal-right">
+      <h2 class="leaderboard-title">Leaderboard</h2>
+      <div id="leaderboard-list" class="leaderboard-container"></div>
+    </div>
     <button id="btn-next-question" class="btn btn-primary host-nav-btn">Next Question →</button>
   </div>
 

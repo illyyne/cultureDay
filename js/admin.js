@@ -558,6 +558,185 @@
         mediaType: "photo", mediaUrl: "assets/images/dishes/hotpotChina.jpg",
         location: { city: "Chongqing", country: "China", lat: 29.4316, lng: 106.9123 },
         funFact: "Hot pot has been a Chinese tradition for over 1,000 years, especially popular in Sichuan."
+      },
+      // === HISTORY (5) ===
+      {
+        text: "The ancient city of Petra, carved into rose-red cliffs, is in which country?",
+        round: "history", order: 1,
+        choices: ["Egypt", "Jordan", "Lebanon", "Iraq"],
+        correctIndex: 1,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Petra", country: "Jordan", lat: 30.3285, lng: 35.4444 },
+        funFact: "Petra was the capital of the Nabataean Kingdom and was lost to the Western world for centuries."
+      },
+      {
+        text: "The Aztec Empire was centered in what is now which country?",
+        round: "history", order: 2,
+        choices: ["Guatemala", "Peru", "Mexico", "Colombia"],
+        correctIndex: 2,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Mexico City", country: "Mexico", lat: 19.4326, lng: -99.1332 },
+        funFact: "The Aztec capital Tenochtitlan was built on an island in Lake Texcoco in 1325."
+      },
+      {
+        text: "The ancient kingdom of Aksum was located in which modern-day country?",
+        round: "history", order: 3,
+        choices: ["Ethiopia", "Sudan", "Somalia", "Kenya"],
+        correctIndex: 0,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Axum", country: "Ethiopia", lat: 14.121, lng: 38.7469 },
+        funFact: "The Kingdom of Aksum was one of the four great powers of the ancient world."
+      },
+      {
+        text: "The Silk Road connected China with which other major civilization?",
+        round: "history", order: 4,
+        choices: ["Roman Empire", "Mayan Empire", "Khmer Empire", "Zulu Kingdom"],
+        correctIndex: 0,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Xi'an", country: "China", lat: 34.3416, lng: 108.9398 },
+        funFact: "The Silk Road was not a single road but a network of trade routes spanning over 6,400 km."
+      },
+      {
+        text: "The Great Zimbabwe ruins are found in which African country?",
+        round: "history", order: 5,
+        choices: ["Mozambique", "Zimbabwe", "Zambia", "Botswana"],
+        correctIndex: 1,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Masvingo", country: "Zimbabwe", lat: -20.2674, lng: 30.9327 },
+        funFact: "Great Zimbabwe was the capital of a thriving trading empire from the 11th to 15th century."
+      },
+      // === GEOGRAPHY (5, map-guessed) ===
+      {
+        text: "Where is the Sahara Desert located?",
+        round: "geography", order: 1,
+        choices: [], correctIndex: 0,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Sahara", country: "North Africa", lat: 23.4162, lng: 25.6628 },
+        funFact: "The Sahara is the largest hot desert in the world, almost as large as the United States."
+      },
+      {
+        text: "Can you locate the Amazon River on the map?",
+        round: "geography", order: 2,
+        choices: [], correctIndex: 0,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Manaus", country: "Brazil", lat: -3.119, lng: -60.0217 },
+        funFact: "The Amazon River carries more water than the next seven largest rivers combined."
+      },
+      {
+        text: "Where is the Himalaya mountain range?",
+        round: "geography", order: 3,
+        choices: [], correctIndex: 0,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Everest Region", country: "Nepal", lat: 27.9881, lng: 86.925 },
+        funFact: "The Himalayas contain 9 of the 10 highest peaks in the world, including Mount Everest."
+      },
+      {
+        text: "Where is the Great Barrier Reef?",
+        round: "geography", order: 4,
+        choices: [], correctIndex: 0,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Cairns", country: "Australia", lat: -18.2871, lng: 147.6992 },
+        funFact: "The Great Barrier Reef is the largest living structure on Earth, visible from space."
+      },
+      {
+        text: "Can you locate Lake Baikal on the map?",
+        round: "geography", order: 5,
+        choices: [], correctIndex: 0,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Irkutsk", country: "Russia", lat: 53.5587, lng: 108.1650 },
+        funFact: "Lake Baikal is the deepest and oldest freshwater lake in the world."
+      },
+      // === TRADITIONS & FESTIVALS (5) ===
+      {
+        text: "The Day of the Dead (Día de los Muertos) is celebrated in which country?",
+        round: "traditions", order: 1,
+        choices: ["Spain", "Mexico", "Brazil", "Philippines"],
+        correctIndex: 1,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Oaxaca", country: "Mexico", lat: 17.0732, lng: -96.7266 },
+        funFact: "Day of the Dead is a celebration of life and death, with roots in Aztec tradition."
+      },
+      {
+        text: "Diwali, the Festival of Lights, originated in which country?",
+        round: "traditions", order: 2,
+        choices: ["Thailand", "India", "Nepal", "Sri Lanka"],
+        correctIndex: 1,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Varanasi", country: "India", lat: 25.3176, lng: 83.0068 },
+        funFact: "Diwali is celebrated by over 1 billion people worldwide across multiple religions."
+      },
+      {
+        text: "The Haka is a traditional war dance of which indigenous people?",
+        round: "traditions", order: 3,
+        choices: ["Aboriginal Australians", "Maori (New Zealand)", "Samoan", "Hawaiian"],
+        correctIndex: 1,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Wellington", country: "New Zealand", lat: -41.2865, lng: 174.7762 },
+        funFact: "The All Blacks rugby team famously performs the Haka before every match."
+      },
+      {
+        text: "Carnival with elaborate samba parades is most famous in which city?",
+        round: "traditions", order: 4,
+        choices: ["Venice", "Rio de Janeiro", "New Orleans", "Trinidad"],
+        correctIndex: 1,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Rio de Janeiro", country: "Brazil", lat: -22.9068, lng: -43.1729 },
+        funFact: "Rio Carnival attracts over 2 million people per day during celebrations."
+      },
+      {
+        text: "The Lantern Festival marks the end of Chinese New Year in which country?",
+        round: "traditions", order: 5,
+        choices: ["Japan", "China", "Vietnam", "South Korea"],
+        correctIndex: 1,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Beijing", country: "China", lat: 39.9042, lng: 116.4074 },
+        funFact: "The Lantern Festival dates back over 2,000 years to the Han Dynasty."
+      },
+      // === CLOTHES & FASHION (5) ===
+      {
+        text: "The kimono is the traditional garment of which country?",
+        round: "clothes", order: 1,
+        choices: ["China", "South Korea", "Japan", "Vietnam"],
+        correctIndex: 2,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Kyoto", country: "Japan", lat: 35.0116, lng: 135.7681 },
+        funFact: "The word kimono literally means 'thing to wear' in Japanese."
+      },
+      {
+        text: "The colorful kente cloth is traditionally woven by which people?",
+        round: "clothes", order: 2,
+        choices: ["Yoruba (Nigeria)", "Ashanti (Ghana)", "Maasai (Kenya)", "Zulu (South Africa)"],
+        correctIndex: 1,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Kumasi", country: "Ghana", lat: 6.6885, lng: -1.6244 },
+        funFact: "Kente cloth patterns have specific meanings and were once reserved for royalty."
+      },
+      {
+        text: "The sari is a traditional draped garment from which country?",
+        round: "clothes", order: 3,
+        choices: ["Bangladesh", "India", "Pakistan", "Sri Lanka"],
+        correctIndex: 1,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Varanasi", country: "India", lat: 25.3176, lng: 83.0068 },
+        funFact: "The sari has been worn for over 5,000 years, making it one of the oldest garments."
+      },
+      {
+        text: "The hanbok is the traditional clothing of which country?",
+        round: "clothes", order: 4,
+        choices: ["Japan", "South Korea", "Mongolia", "Thailand"],
+        correctIndex: 1,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Seoul", country: "South Korea", lat: 37.5665, lng: 126.978 },
+        funFact: "Hanbok is characterized by vibrant colors and simple lines without pockets."
+      },
+      {
+        text: "The poncho is a traditional garment originating from which region?",
+        round: "clothes", order: 5,
+        choices: ["Central America", "South America (Andes)", "Caribbean", "Southern Europe"],
+        correctIndex: 1,
+        mediaType: null, mediaUrl: null,
+        location: { city: "Cusco", country: "Peru", lat: -13.5319, lng: -71.9675 },
+        funFact: "The poncho has been worn by indigenous peoples of the Andes for over 500 years."
       }
     ];
   }

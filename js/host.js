@@ -11,30 +11,23 @@
   let timerDuration = 20;
   let answerListener = null;
   let leafletMap = null;
-  let currentMarker = null;
 
-  // DOM refs
   const $ = id => document.getElementById(id);
 
   // === LOBBY ===
   async function createGame() {
     gameCode = generateGameCode();
     gameRef = db.ref('games/' + gameCode);
-
-    const exists = (await gameRef.once('value')).exists();
-    if (exists) {
+    if ((await gameRef.once('value')).exists()) {
       gameCode = generateGameCode();
       gameRef = db.ref('games/' + gameCode);
     }
 
     await gameRef.set({
-      hostId,
-      state: STATES.LOBBY,
-      currentQuestionIndex: 0,
-      questionIds: [],
-      currentRound: '',
-      timerEnd: 0,
-      timerDuration: 20,
+      hostId, state: STATES.LOBBY,
+      currentQuestionIndex: 0, questionIds: [],
+      currentRound: '', timerEnd: 0, timerDuration: 20,
+      isDoublePoints: false,
       createdAt: firebase.database.ServerValue.TIMESTAMP
     });
 
@@ -50,7 +43,6 @@
     qr.addData(url);
     qr.make();
     $('qrcode').innerHTML = qr.createSvgTag(5, 0);
-
     const linkEl = document.createElement('div');
     linkEl.style.cssText = 'font-size:var(--text-sm);color:var(--color-text-secondary);margin-top:var(--space-2);word-break:break-all;max-width:300px;text-align:center;';
     linkEl.textContent = url;
@@ -63,84 +55,69 @@
       const names = Object.values(players).map(p => p.name);
       $('player-count').textContent = names.length + ' player' + (names.length !== 1 ? 's' : '') + ' joined';
       $('player-chips').innerHTML = names.map(n =>
-        '<span class="player-chip">' + escapeHtml(n) + '</span>'
-      ).join('');
+        '<span class="player-chip">' + escapeHtml(n) + '</span>').join('');
       $('btn-start').disabled = names.length < 1;
     });
   }
 
-  // === LOAD QUESTIONS ===
   async function loadQuestions() {
     const snap = await db.ref('questions').orderByChild('order').once('value');
     const all = [];
-    snap.forEach(child => {
-      all.push({ id: child.key, ...child.val() });
-    });
+    snap.forEach(child => { all.push({ id: child.key, ...child.val() }); });
 
     const byRound = {};
     ROUND_ORDER.forEach(r => { byRound[r] = []; });
-    all.forEach(q => {
-      if (byRound[q.round]) byRound[q.round].push(q);
-    });
+    all.forEach(q => { if (byRound[q.round]) byRound[q.round].push(q); });
 
     questions = [];
     ROUND_ORDER.forEach(r => {
       byRound[r].sort((a, b) => (a.order || 0) - (b.order || 0));
       questions.push(...byRound[r]);
     });
-
     return questions.map(q => q.id);
   }
 
-  // === START GAME ===
+  // === START ===
   $('btn-start').addEventListener('click', async () => {
     $('btn-start').disabled = true;
     timerDuration = parseInt($('timer-select').value);
-
     const questionIds = await loadQuestions();
     if (questionIds.length === 0) {
       alert('No questions found! Add questions in the admin panel first.');
       $('btn-start').disabled = false;
       return;
     }
-
-    await gameRef.update({
-      questionIds,
-      timerDuration,
-      currentQuestionIndex: 0
-    });
-
+    await gameRef.update({ questionIds, timerDuration, currentQuestionIndex: 0 });
     currentQIndex = 0;
-    showRoundInterstitial(questions[0].round, () => {
-      transitionTo(STATES.QUESTION);
-    });
+    showRoundInterstitial(questions[0].round, () => transitionTo(STATES.QUESTION));
   });
 
-  // === STATE MACHINE ===
+  // === STATE MACHINE (simplified: QUESTION → REVEAL → next QUESTION → FINISHED) ===
   async function transitionTo(state) {
     await gameRef.update({ state });
-
     switch (state) {
       case STATES.QUESTION: enterQuestion(); break;
-      case STATES.ANSWERS: enterAnswers(); break;
       case STATES.REVEAL: enterReveal(); break;
-      case STATES.LEADERBOARD: enterLeaderboard(); break;
       case STATES.FINISHED: enterFinished(); break;
     }
   }
 
-  // === QUESTION STATE ===
+  // === QUESTION ===
   function enterQuestion() {
     const q = questions[currentQIndex];
     if (!q) return transitionTo(STATES.FINISHED);
 
+    const isMap = isMapRound(q.round);
+    const effectiveTimer = isMap ? Math.max(timerDuration, SCORING.MAP_TIMER_DURATION) : timerDuration;
+    const isDouble = isDoublePointsQuestion(currentQIndex, questions);
+
     showScreen('screen-question');
 
-    $('q-round-badge').textContent = ROUND_LABELS[q.round] || q.round;
+    $('q-round-badge').textContent = (ROUND_ICONS[q.round] || '') + ' ' + (ROUND_LABELS[q.round] || q.round);
     $('q-counter').textContent = (currentQIndex + 1) + ' of ' + questions.length;
     $('q-text').textContent = q.text;
+    $('q-double-badge').style.display = isDouble ? 'block' : 'none';
 
-    // Media
     const img = $('q-image');
     const audioContainer = $('q-audio-container');
     const audio = $('q-audio');
@@ -156,30 +133,30 @@
       audio.play().catch(() => {});
     }
 
-    // Choices
-    $('q-choices').innerHTML = q.choices.map((c, i) =>
-      '<div class="host-choice" style="background:' + ANSWER_COLORS[i].bg + '">' +
-        '<span class="shape">' + ANSWER_COLORS[i].shape + '</span> ' +
-        escapeHtml(c) +
-      '</div>'
-    ).join('');
+    if (isMap) {
+      $('q-choices').innerHTML = '<div style="font-size:var(--text-xl);color:var(--host-accent);text-align:center;padding:var(--space-4)">🗺️ Players are pinning on the map...</div>';
+    } else {
+      $('q-choices').innerHTML = q.choices.map((c, i) =>
+        '<div class="host-choice" style="background:' + ANSWER_COLORS[i].bg + '">' +
+          '<span class="shape">' + ANSWER_COLORS[i].shape + '</span> ' + escapeHtml(c) + '</div>'
+      ).join('');
+    }
 
-    // Answer counter
     const playerCount = Object.keys(players).length;
     $('total-players').textContent = playerCount;
     $('answered-count').textContent = '0';
     $('q-answer-count').style.display = 'flex';
 
-    // Timer
-    const timerMs = timerDuration * 1000;
+    const timerMs = effectiveTimer * 1000;
     const timerEnd = getServerTime() + timerMs;
     gameRef.update({
-      timerEnd,
+      timerEnd, timerDuration: effectiveTimer,
       currentQuestionIndex: currentQIndex,
-      currentRound: q.round
+      currentRound: q.round,
+      isDoublePoints: isDouble
     });
 
-    startTimer(timerDuration);
+    startTimer(effectiveTimer);
     listenForAnswers();
   }
 
@@ -187,7 +164,6 @@
     clearInterval(timerInterval);
     const circumference = 2 * Math.PI * 44;
     let remaining = seconds;
-
     $('timer-text').textContent = remaining;
     $('timer-progress').style.strokeDashoffset = '0';
 
@@ -196,17 +172,8 @@
       $('timer-text').textContent = Math.max(0, remaining);
       const fraction = 1 - (remaining / seconds);
       $('timer-progress').style.strokeDashoffset = (circumference * fraction).toFixed(2);
-
-      if (remaining <= 5) {
-        $('timer-progress').style.stroke = 'var(--color-wrong)';
-      } else {
-        $('timer-progress').style.stroke = 'var(--color-accent)';
-      }
-
-      if (remaining <= 0) {
-        clearInterval(timerInterval);
-        transitionTo(STATES.ANSWERS);
-      }
+      $('timer-progress').style.stroke = remaining <= 5 ? 'var(--color-wrong)' : 'var(--color-accent)';
+      if (remaining <= 0) { clearInterval(timerInterval); goToReveal(); }
     }, 1000);
   }
 
@@ -214,109 +181,113 @@
     if (answerListener) answerListener();
     const ref = gameRef.child('answers/' + currentQIndex);
     const handler = ref.on('value', snap => {
-      const answers = snap.val() || {};
-      const count = Object.keys(answers).length;
+      const count = Object.keys(snap.val() || {}).length;
       $('answered-count').textContent = count;
-
-      const playerCount = Object.keys(players).length;
-      if (count >= playerCount && playerCount > 0) {
+      if (count >= Object.keys(players).length && Object.keys(players).length > 0) {
         clearInterval(timerInterval);
-        transitionTo(STATES.ANSWERS);
+        goToReveal();
       }
     });
     answerListener = () => ref.off('value', handler);
   }
 
-  // === ANSWERS STATE ===
-  async function enterAnswers() {
+  async function goToReveal() {
     if (answerListener) { answerListener(); answerListener = null; }
-
-    const q = questions[currentQIndex];
-    showScreen('screen-answers');
-    $('answers-q-text').textContent = q.text;
-
-    // Stop audio
     const audio = $('q-audio');
     if (audio && !audio.paused) audio.pause();
 
-    // Read answers
+    const q = questions[currentQIndex];
+    const isMap = isMapRound(q.round);
+    const isDouble = isDoublePointsQuestion(currentQIndex, questions);
+
     const snap = await gameRef.child('answers/' + currentQIndex).once('value');
     const answers = snap.val() || {};
 
-    // Count per choice
-    const counts = [0, 0, 0, 0];
-    Object.values(answers).forEach(a => {
-      if (a.choiceIndex >= 0 && a.choiceIndex < 4) counts[a.choiceIndex]++;
-    });
+    await computeScores(q, answers, isMap, isDouble);
 
-    const maxCount = Math.max(...counts, 1);
-    $('answer-bars').innerHTML = q.choices.map((c, i) =>
-      '<div class="answer-bar-row">' +
-        '<div class="answer-bar-label" style="color:' + ANSWER_COLORS[i].bg + '">' +
-          ANSWER_COLORS[i].shape + ' ' + ANSWER_COLORS[i].label +
-        '</div>' +
-        '<div class="answer-bar" style="background:' + ANSWER_COLORS[i].bg +
-          ';width:' + (counts[i] / maxCount * 100) + '%">' +
-          counts[i] +
-        '</div>' +
-      '</div>'
-    ).join('');
+    // Refresh players after score update
+    const pSnap = await gameRef.child('players').once('value');
+    players = pSnap.val() || {};
 
-    // Compute scores
-    await computeScores(q, answers);
-
-    setTimeout(() => transitionTo(STATES.REVEAL), 3000);
+    transitionTo(STATES.REVEAL);
   }
 
-  async function computeScores(question, answers) {
-    const timerMs = timerDuration * 1000;
+  async function computeScores(question, answers, isMap, isDouble) {
+    const effectiveTimer = isMap ? Math.max(timerDuration, SCORING.MAP_TIMER_DURATION) : timerDuration;
+    const timerMs = effectiveTimer * 1000;
+    const multiplier = isDouble ? SCORING.DOUBLE_POINTS_MULTIPLIER : 1;
     const updates = {};
 
-    for (const [playerId, answer] of Object.entries(answers)) {
-      const player = players[playerId];
+    for (const [pid, answer] of Object.entries(answers)) {
+      const player = players[pid];
       if (!player) continue;
-
-      const isCorrect = answer.choiceIndex === question.correctIndex;
-      const responseTime = answer.answeredAt ? (answer.answeredAt - (getServerTime() - timerMs)) : timerMs;
       const currentStreak = player.streak || 0;
+      const responseTime = answer.answeredAt ? Math.max(0, answer.answeredAt - (getServerTime() - timerMs)) : timerMs;
 
-      const result = calculateScore(isCorrect, Math.max(0, responseTime), timerMs, currentStreak);
-
-      updates['players/' + playerId + '/score'] = (player.score || 0) + result.points;
-      updates['players/' + playerId + '/streak'] = result.newStreak;
-      updates['players/' + playerId + '/lastPoints'] = result.points;
-      updates['players/' + playerId + '/lastCorrect'] = isCorrect;
-    }
-
-    // Players who didn't answer
-    for (const [playerId, player] of Object.entries(players)) {
-      if (!answers[playerId]) {
-        updates['players/' + playerId + '/streak'] = 0;
-        updates['players/' + playerId + '/lastPoints'] = 0;
-        updates['players/' + playerId + '/lastCorrect'] = false;
+      if (isMap) {
+        if (answer.lat != null && answer.lng != null && question.location) {
+          const dist = haversineDistance(answer.lat, answer.lng, question.location.lat, question.location.lng);
+          const result = calculateMapScore(dist, responseTime, timerMs, currentStreak);
+          const pts = result.points * multiplier;
+          updates['players/' + pid + '/score'] = (player.score || 0) + pts;
+          updates['players/' + pid + '/streak'] = result.newStreak;
+          updates['players/' + pid + '/lastPoints'] = pts;
+          updates['players/' + pid + '/lastCorrect'] = dist <= 500;
+          updates['players/' + pid + '/lastDistance'] = Math.round(dist);
+        } else {
+          updates['players/' + pid + '/streak'] = 0;
+          updates['players/' + pid + '/lastPoints'] = 0;
+          updates['players/' + pid + '/lastCorrect'] = false;
+          updates['players/' + pid + '/lastDistance'] = null;
+        }
+      } else {
+        const isCorrect = answer.choiceIndex === question.correctIndex;
+        const result = calculateScore(isCorrect, responseTime, timerMs, currentStreak);
+        const pts = result.points * multiplier;
+        updates['players/' + pid + '/score'] = (player.score || 0) + pts;
+        updates['players/' + pid + '/streak'] = result.newStreak;
+        updates['players/' + pid + '/lastPoints'] = pts;
+        updates['players/' + pid + '/lastCorrect'] = isCorrect;
+        updates['players/' + pid + '/lastDistance'] = null;
       }
     }
 
-    if (Object.keys(updates).length > 0) {
-      await gameRef.update(updates);
+    for (const [pid] of Object.entries(players)) {
+      if (!answers[pid]) {
+        updates['players/' + pid + '/streak'] = 0;
+        updates['players/' + pid + '/lastPoints'] = 0;
+        updates['players/' + pid + '/lastCorrect'] = false;
+        updates['players/' + pid + '/lastDistance'] = null;
+      }
     }
+
+    if (Object.keys(updates).length > 0) await gameRef.update(updates);
   }
 
-  // === REVEAL STATE ===
+  // === REVEAL (combined with leaderboard) ===
   function enterReveal() {
     const q = questions[currentQIndex];
+    const isMap = isMapRound(q.round);
+    const isDouble = isDoublePointsQuestion(currentQIndex, questions);
+
     showScreen('screen-reveal');
 
+    // Double points
+    $('reveal-double-badge').style.display = isDouble ? 'block' : 'none';
     $('reveal-q-text').textContent = q.text;
 
-    $('reveal-choices').innerHTML = q.choices.map((c, i) => {
-      const isCorrect = i === q.correctIndex;
-      const cls = isCorrect ? 'correct' : 'wrong';
-      return '<div class="host-choice ' + cls + '" style="background:' + ANSWER_COLORS[i].bg + '">' +
-        '<span class="shape">' + ANSWER_COLORS[i].shape + '</span> ' +
-        escapeHtml(c) +
-      '</div>';
-    }).join('');
+    // Left: answer details
+    if (isMap) {
+      $('reveal-choices').innerHTML = '';
+      $('answer-bars').innerHTML = '';
+    } else {
+      $('reveal-choices').innerHTML = q.choices.map((c, i) => {
+        const cls = i === q.correctIndex ? 'correct' : 'wrong';
+        return '<div class="host-choice ' + cls + '" style="background:' + ANSWER_COLORS[i].bg + '">' +
+          '<span class="shape">' + ANSWER_COLORS[i].shape + '</span> ' + escapeHtml(c) + '</div>';
+      }).join('');
+      $('answer-bars').innerHTML = '';
+    }
 
     // Map
     if (q.location && q.location.lat) {
@@ -324,7 +295,7 @@
       setTimeout(() => {
         if (leafletMap) leafletMap.remove();
         leafletMap = initMap('reveal-map', q.location.lat, q.location.lng);
-        currentMarker = addMarker(leafletMap, q.location.lat, q.location.lng,
+        addMarker(leafletMap, q.location.lat, q.location.lng,
           q.location.city + ', ' + q.location.country);
       }, 100);
     } else {
@@ -338,17 +309,11 @@
     } else {
       $('reveal-fun-fact').style.display = 'none';
     }
-  }
 
-  $('btn-show-leaderboard').addEventListener('click', () => {
-    transitionTo(STATES.LEADERBOARD);
-  });
+    // Right: leaderboard
+    renderLeaderboard('leaderboard-list', players, 8);
 
-  // === LEADERBOARD STATE ===
-  function enterLeaderboard() {
-    showScreen('screen-leaderboard');
-    renderLeaderboard('leaderboard-list', players, 5);
-
+    // Next button
     const isLast = currentQIndex >= questions.length - 1;
     const nextBtn = $('btn-next-question');
 
@@ -364,11 +329,8 @@
       nextBtn.onclick = () => {
         currentQIndex++;
         gameRef.update({ currentQuestionIndex: currentQIndex });
-
         if (isNewRound) {
-          showRoundInterstitial(nextQ.round, () => {
-            transitionTo(STATES.QUESTION);
-          });
+          showRoundInterstitial(nextQ.round, () => transitionTo(STATES.QUESTION));
         } else {
           transitionTo(STATES.QUESTION);
         }
@@ -376,29 +338,22 @@
     }
   }
 
-  // === FINISHED STATE ===
+  // === FINISHED ===
   function enterFinished() {
     showScreen('screen-finished');
-
     const sorted = Object.entries(players)
       .map(([id, p]) => ({ id, ...p }))
       .sort((a, b) => (b.score || 0) - (a.score || 0));
 
-    // Winner text
-    if (sorted.length > 0) {
-      $('winner-text').textContent = '🎉 ' + sorted[0].name + ' Wins! 🎉';
-    }
+    if (sorted.length > 0) $('winner-text').textContent = '🎉 ' + sorted[0].name + ' Wins! 🎉';
 
-    // Podium
     const podiumData = [
       { place: 1, class: 'gold', trophy: '🥇', player: sorted[0] },
       { place: 2, class: 'silver', trophy: '🥈', player: sorted[1] },
       { place: 3, class: 'bronze', trophy: '🥉', player: sorted[2] }
     ].filter(p => p.player);
 
-    // Display order: silver(2), gold(1), bronze(3)
     const displayOrder = [podiumData[1], podiumData[0], podiumData[2]].filter(Boolean);
-
     $('podium').innerHTML = displayOrder.map(p =>
       '<div class="podium-place animate-scale-in">' +
         '<div class="podium-trophy">' + p.trophy + '</div>' +
@@ -417,7 +372,6 @@
     const container = $('confetti-container');
     container.innerHTML = '';
     const colors = ['#E21B3C', '#1368CE', '#D89E00', '#26890C', '#E85D3A', '#F2A922'];
-
     for (let i = 0; i < 80; i++) {
       const piece = document.createElement('div');
       piece.className = 'confetti-piece';
@@ -431,33 +385,22 @@
     }
   }
 
-  // === ROUND INTERSTITIAL ===
   function showRoundInterstitial(round, callback) {
     const roundIdx = ROUND_ORDER.indexOf(round) + 1;
     $('round-number').textContent = 'Round ' + roundIdx;
-    $('round-name').textContent = ROUND_LABELS[round] || round;
-
+    $('round-name').textContent = (ROUND_ICONS[round] || '') + ' ' + (ROUND_LABELS[round] || round);
     const el = $('round-interstitial');
     el.classList.add('active');
-
-    setTimeout(() => {
-      el.classList.remove('active');
-      callback();
-    }, 3000);
+    setTimeout(() => { el.classList.remove('active'); callback(); }, 3000);
   }
 
-  // === PLAY AGAIN ===
-  $('btn-play-again').addEventListener('click', () => {
-    window.location.reload();
-  });
+  $('btn-play-again').addEventListener('click', () => window.location.reload());
 
-  // === UTILS ===
   function escapeHtml(str) {
     const div = document.createElement('div');
     div.textContent = str || '';
     return div.innerHTML;
   }
 
-  // Init
   createGame();
 })();

@@ -6,6 +6,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="robots" content="noindex, nofollow">
   <title>Culture Day Quiz</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
   <link rel="stylesheet" href="css/shared.css">
   <link rel="stylesheet" href="css/player.css">
 </head>
@@ -33,12 +34,23 @@
     <div class="wait-player-count" id="wait-player-count">0 players joined</div>
   </div>
 
-  <!-- QUESTION -->
+  <!-- QUESTION (multiple choice) -->
   <div id="screen-question" class="screen">
     <div class="player-round-info" id="p-round-info"></div>
     <div class="player-timer" id="p-timer">20</div>
+    <div id="p-double-badge" class="double-badge" style="display:none">⚡ DOUBLE POINTS ⚡</div>
     <p class="player-question-text" id="p-question-text"></p>
     <div class="answer-grid" id="p-answer-grid"></div>
+  </div>
+
+  <!-- QUESTION (map mode) -->
+  <div id="screen-question-map" class="screen">
+    <div class="player-round-info" id="p-map-round-info"></div>
+    <div class="player-timer" id="p-map-timer">30</div>
+    <div id="p-map-double-badge" class="double-badge" style="display:none">⚡ DOUBLE POINTS ⚡</div>
+    <p class="player-question-text" id="p-map-question-text"></p>
+    <div id="player-map" class="player-map"></div>
+    <button id="btn-confirm-pin" class="btn btn-primary confirm-pin-btn" disabled>Confirm Location</button>
   </div>
 
   <!-- ANSWERED (waiting) -->
@@ -52,6 +64,7 @@
   <div id="screen-feedback" class="screen feedback-screen">
     <div class="feedback-icon" id="fb-icon"></div>
     <div class="feedback-result" id="fb-result"></div>
+    <div class="feedback-distance" id="fb-distance" style="display:none"></div>
     <div class="feedback-points" id="fb-points"></div>
     <div class="feedback-correct-answer" id="fb-correct"></div>
     <div class="streak-badge" id="fb-streak" style="display:none"></div>
@@ -76,6 +89,7 @@
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/firebase-config.js"></script>
   <script src="js/game-constants.js"></script>
   <script src="js/player.js"></script>
