@@ -207,6 +207,13 @@
       "choices": ["6 + RDC", "5 + RDC", "4 + RDC", "3 + RDC"],
       "correctIndex": 2,
       "funFact": "The Ericsson Massy building has 4 floors plus the ground floor (RDC) open."
+    },
+    {
+      "text": "⭐ BONUS — How many nationalities are represented at Ericsson France?",
+      "round": "bonus", "order": 5,
+      "choices": ["30", "45", "55", "60"],
+      "correctIndex": 1,
+      "funFact": "Ericsson France has 45 nationalities across the company, and the R&D center (ESF) alone has 31 different nationalities!"
     }
   ]
 }
