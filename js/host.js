@@ -1,4 +1,42 @@
 (async function () {
+  const $ = id => document.getElementById(id);
+
+  // Wire up quiz file loader immediately (before auth)
+  $('btn-load-quiz').addEventListener('click', () => $('quiz-file-input').click());
+
+  $('quiz-file-input').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      const qs = data.questions || data;
+
+      if (!Array.isArray(qs) || qs.length === 0) {
+        return alert('Invalid file. Expected { "questions": [...] }');
+      }
+
+      const batch = {};
+      for (const q of qs) {
+        const key = db.ref('questions').push().key;
+        q.createdAt = firebase.database.ServerValue.TIMESTAMP;
+        q.updatedAt = firebase.database.ServerValue.TIMESTAMP;
+        batch[key] = q;
+      }
+      await db.ref('questions').set(batch);
+
+      const rounds = [...new Set(qs.map(q => q.round))];
+      const roundNames = rounds.map(r => (ROUND_ICONS[r] || '') + ' ' + (ROUND_LABELS[r] || r)).join(', ');
+      $('session-status').textContent = qs.length + ' questions loaded (' + roundNames + ')';
+      $('session-status').style.color = 'var(--color-correct, #26890C)';
+    } catch (err) {
+      alert('Failed to load quiz: ' + err.message);
+    }
+
+    e.target.value = '';
+  });
+
   const hostId = await signInAnonymously();
   if (!hostId) return alert('Authentication failed. Please refresh.');
 
@@ -16,8 +54,6 @@
   let isTransitioningToReveal = false;
   let fastestPlayer = null;
   let streakPlayers = [];
-
-  const $ = id => document.getElementById(id);
 
   // === LOBBY ===
   async function createGame() {
@@ -95,42 +131,6 @@
     });
     return questions.map(q => q.id);
   }
-
-  // === LOAD QUIZ FILE ===
-  $('btn-load-quiz').addEventListener('click', () => $('quiz-file-input').click());
-
-  $('quiz-file-input').addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    try {
-      const text = await file.text();
-      const data = JSON.parse(text);
-      const qs = data.questions || data;
-
-      if (!Array.isArray(qs) || qs.length === 0) {
-        return alert('Invalid file. Expected { "questions": [...] }');
-      }
-
-      const batch = {};
-      for (const q of qs) {
-        const key = db.ref('questions').push().key;
-        q.createdAt = firebase.database.ServerValue.TIMESTAMP;
-        q.updatedAt = firebase.database.ServerValue.TIMESTAMP;
-        batch[key] = q;
-      }
-      await db.ref('questions').set(batch);
-
-      const rounds = [...new Set(qs.map(q => q.round))];
-      const roundNames = rounds.map(r => (ROUND_ICONS[r] || '') + ' ' + (ROUND_LABELS[r] || r)).join(', ');
-      $('session-status').textContent = qs.length + ' questions loaded (' + roundNames + ')';
-      $('session-status').style.color = 'var(--color-correct, #26890C)';
-    } catch (err) {
-      alert('Failed to load quiz: ' + err.message);
-    }
-
-    e.target.value = '';
-  });
 
   // === START ===
   $('btn-start').addEventListener('click', async () => {

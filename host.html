@@ -26,7 +26,6 @@
     <div id="player-chips" class="lobby-players"></div>
     <div class="lobby-session">
       <button id="btn-load-quiz" class="btn btn-secondary" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4)">📂 Load Quiz File</button>
-      <input type="file" id="quiz-file-input" style="display:none" accept=".json">
       <span id="session-status" style="color:var(--color-text-secondary);font-size:var(--text-sm);margin-left:var(--space-3)">No quiz loaded</span>
     </div>
     <div class="lobby-controls">
@@ -110,6 +109,9 @@
     <div id="final-leaderboard" class="leaderboard-container" style="margin-top:var(--space-8)"></div>
     <button id="btn-play-again" class="btn btn-primary" style="margin-top:var(--space-8)">Play Again</button>
   </div>
+
+  <!-- Hidden file input for quiz loading -->
+  <input type="file" id="quiz-file-input" style="display:none" accept=".json">
 
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
