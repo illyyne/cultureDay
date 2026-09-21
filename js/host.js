@@ -189,7 +189,7 @@
     const q = questions[currentQIndex];
     if (!q) return transitionTo(STATES.FINISHED);
 
-    const isMap = isMapRound(q.round);
+    const isMap = isMapQuestion(q);
     const effectiveTimer = isMap ? Math.max(timerDuration, SCORING.MAP_TIMER_DURATION) : timerDuration;
     const isDouble = isDoublePointsQuestion(currentQIndex, questions);
 
@@ -286,7 +286,7 @@
     if (audio && !audio.paused) audio.pause();
 
     const q = questions[currentQIndex];
-    const isMap = isMapRound(q.round);
+    const isMap = isMapQuestion(q);
     const isDouble = isDoublePointsQuestion(currentQIndex, questions);
 
     const snap = await gameRef.child('answers/' + currentQIndex).once('value');
@@ -369,7 +369,7 @@
   // === REVEAL (combined with leaderboard) ===
   function enterReveal() {
     const q = questions[currentQIndex];
-    const isMap = isMapRound(q.round);
+    const isMap = isMapQuestion(q);
     const isDouble = isDoublePointsQuestion(currentQIndex, questions);
 
     showScreen('screen-reveal');

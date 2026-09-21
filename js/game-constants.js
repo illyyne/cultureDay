@@ -42,12 +42,10 @@ const ROUND_ICONS = {
 
 const ROUND_ORDER = ['photos', 'food', 'traditions', 'clothes', 'sports', 'music', 'expressions', 'bonus'];
 
-const MAP_ROUNDS = ['photos', 'bonus'];
-
 const QUESTIONS_PER_ROUND = 5;
 
-function isMapRound(round) {
-  return MAP_ROUNDS.includes(round);
+function isMapQuestion(q) {
+  return q && (!q.choices || q.choices.length === 0) && q.location && q.location.lat;
 }
 
 const SCORING = {

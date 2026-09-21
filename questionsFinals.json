@@ -154,12 +154,12 @@
     {
       "text": "Which African country was the first to reach a World Cup quarter-final?",
       "round": "sports", "order": 5,
-      "choices": ["Nigeria", "Cameroon", "Ghana", "Senegal"],
+      "choices": ["Tunisia", "Cameroon", "Ghana", "Morocco"],
       "correctIndex": 1,
       "funFact": "Cameroon reached the quarter-finals at Italia 1990, led by 38-year-old Roger Milla, becoming the first African team to go that far."
     },
     {
-      "text": "Which Colombian singer is known for the hits 'Hips Don't Lie' and 'Waka Waka'?",
+      "text": "Which Colombian singer is known for the hits 'Hips Don't Lie' and 'Dai Dai'?",
       "round": "music", "order": 1,
       "choices": ["Jennifer Lopez", "Shakira", "Gloria Estefan", "Karol G"],
       "correctIndex": 1,
@@ -175,7 +175,7 @@
     {
       "text": "Which Lebanese singer is famous for the song 'Habibi Ya Nour El Ain'?",
       "round": "music", "order": 5,
-      "choices": ["Fairuz", "Amr Diab", "Nancy Ajram", "Elissa"],
+      "choices": ["Shakira", "Amr Diab", "Nancy Ajram", "Elissa"],
       "correctIndex": 1,
       "funFact": "Amr Diab is Egyptian, often called the 'Father of Mediterranean Music'. 'Habibi Ya Nour El Ain' (1996) became one of the best-selling Arabic songs of all time."
     },
@@ -190,14 +190,14 @@
     {
       "text": "⭐ BONUS — Since what year has Ericsson been established in France?",
       "round": "bonus", "order": 2,
-      "choices": ["1896", "1909", "1925"],
+      "choices": ["1896", "1909", "1925", "2000"],
       "correctIndex": 1,
       "funFact": "Following the fire at the Gutenberg telephone station in Paris in 1908, Ericsson established its presence in France in 1909."
     },
     {
       "text": "⭐ BONUS — When did the Ericsson France R&D center open?",
       "round": "bonus", "order": 3,
-      "choices": ["2015", "2020", "2024"],
+      "choices": ["2015", "2020", "2024", "2022"],
       "correctIndex": 1,
       "funFact": "The Ericsson France R&D center opened its doors in 2020."
     },

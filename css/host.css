@@ -1,7 +1,8 @@
 body {
   background: var(--host-bg);
   color: var(--host-text);
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .screen {

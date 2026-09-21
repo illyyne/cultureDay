@@ -104,7 +104,7 @@
       const qNum = (qIndex + 1) + '/' + questionIds.length;
       const isDouble = game.isDoublePoints;
 
-      if (isMapRound(round)) {
+      if (isMapQuestion(q)) {
         enterMapQuestion(q, roundLabel, qNum, isDouble, game);
       } else {
         enterChoiceQuestion(q, roundLabel, qNum, isDouble, game);
@@ -234,7 +234,7 @@
       const isCorrect = player.lastCorrect;
       const points = player.lastPoints || 0;
       const distance = player.lastDistance;
-      const isMap = isMapRound(round);
+      const isMap = isMapQuestion(currentQuestionData);
 
       const fbScreen = $('screen-feedback');
       fbScreen.classList.remove('correct', 'wrong');
