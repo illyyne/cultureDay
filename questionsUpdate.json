@@ -1,7 +1,7 @@
 {
   "questions": [
     {
-      "text": "In which country can you find this famous statue?",
+      "text": "In which country/city can you find this famous statue?",
       "round": "photos", "order": 1,
       "choices": ["Argentina", "Portugal", "Colombia", "Brazil"],
       "correctIndex": 3,
@@ -184,12 +184,103 @@
       "funFact": "The poncho has been worn by indigenous peoples of the Andes for over 500 years."
     },
     {
+      "text": "Which country won the very first FIFA World Cup in 1930?",
+      "round": "sports", "order": 1,
+      "choices": ["Brazil", "Argentina", "Uruguay", "Italy"],
+      "correctIndex": 2,
+      "funFact": "Uruguay hosted and won the first ever World Cup in 1930, beating Argentina 4-2 in the final in Montevideo."
+    },
+    {
+      "text": "Which player has scored the most goals in FIFA World Cup history?",
+      "round": "sports", "order": 2,
+      "choices": ["Pelé", "Ronaldo (Brazil)", "Miroslav Klose", "Lionel Messi"],
+      "correctIndex": 2,
+      "funFact": "Germany's Miroslav Klose holds the record with 16 World Cup goals, scored across four tournaments (2002-2014)."
+    },
+    {
+      "text": "Which country has won the most FIFA World Cups?",
+      "round": "sports", "order": 3,
+      "choices": ["Germany", "Italy", "Argentina", "Brazil"],
+      "correctIndex": 3,
+      "funFact": "Brazil has won the World Cup 5 times (1958, 1962, 1970, 1994, 2002) — more than any other nation."
+    },
+    {
+      "text": "In which country was the 2022 FIFA World Cup held?",
+      "round": "sports", "order": 4,
+      "choices": ["Saudi Arabia", "UAE", "Qatar", "Bahrain"],
+      "correctIndex": 2,
+      "funFact": "Qatar 2022 was the first World Cup held in the Middle East and the first played in November-December instead of the usual June-July."
+    },
+    {
+      "text": "Which African country was the first to reach a World Cup quarter-final?",
+      "round": "sports", "order": 5,
+      "choices": ["Nigeria", "Cameroon", "Ghana", "Senegal"],
+      "correctIndex": 1,
+      "funFact": "Cameroon reached the quarter-finals at Italia 1990, led by 38-year-old Roger Milla, becoming the first African team to go that far."
+    },
+    {
+      "text": "Which Colombian singer is known for the hits 'Hips Don't Lie' and 'Waka Waka'?",
+      "round": "music", "order": 1,
+      "choices": ["Jennifer Lopez", "Shakira", "Gloria Estefan", "Karol G"],
+      "correctIndex": 1,
+      "funFact": "Shakira's 'Waka Waka' was the official song of the 2010 FIFA World Cup in South Africa. She sings in both Spanish and English."
+    },
+    {
+      "text": "Which Barbadian singer released the global hit 'Umbrella'?",
+      "round": "music", "order": 2,
+      "choices": ["Beyoncé", "Rihanna", "Adele", "Nicki Minaj"],
+      "correctIndex": 1,
+      "funFact": "Rihanna was born in Saint Michael, Barbados. She became the youngest solo artist to score 14 number-one singles on the Billboard Hot 100."
+    },
+    {
+      "text": "Which South Korean group performed the worldwide hit 'Dynamite'?",
+      "round": "music", "order": 3,
+      "choices": ["BLACKPINK", "EXO", "BTS", "TWICE"],
+      "correctIndex": 2,
+      "funFact": "BTS (Bangtan Sonyeondan) became the first South Korean act to top the US Billboard Hot 100. Their fan base is called the 'ARMY'."
+    },
+    {
+      "text": "Which Nigerian artist is known as the 'African Giant' and sang 'Last Last'?",
+      "round": "music", "order": 4,
+      "choices": ["Wizkid", "Burna Boy", "Davido", "Tiwa Savage"],
+      "correctIndex": 1,
+      "funFact": "Burna Boy won the Grammy for Best Global Music Album in 2021. He is a pioneer of Afrobeats on the global stage."
+    },
+    {
+      "text": "Which Lebanese singer is famous for the song 'Habibi Ya Nour El Ain'?",
+      "round": "music", "order": 5,
+      "choices": ["Fairuz", "Amr Diab", "Nancy Ajram", "Elissa"],
+      "correctIndex": 1,
+      "funFact": "Amr Diab is Egyptian, often called the 'Father of Mediterranean Music'. 'Habibi Ya Nour El Ain' (1996) became one of the best-selling Arabic songs of all time."
+    },
+    {
       "text": "⭐ BONUS — Where is Ericsson's Headquarters? Drop a pin!",
       "round": "bonus", "order": 1,
       "choices": [], "correctIndex": 0,
       "mediaType": "photo", "mediaUrl": "assets/images/ericsson.jpg",
       "location": { "city": "Kista", "country": "Sweden", "lat": 59.4049, "lng": 17.9554 },
       "funFact": "Ericsson was founded in 1876 and is headquartered in Kista, Stockholm."
+    },
+    {
+      "text": "⭐ BONUS — Since what year has Ericsson been established in France?",
+      "round": "bonus", "order": 2,
+      "choices": ["1896", "1909", "1925"],
+      "correctIndex": 1,
+      "funFact": "Following the fire at the Gutenberg telephone station in Paris in 1908, Ericsson established its presence in France in 1909."
+    },
+    {
+      "text": "⭐ BONUS — When did the Ericsson France R&D center open?",
+      "round": "bonus", "order": 3,
+      "choices": ["2015", "2020", "2024"],
+      "correctIndex": 1,
+      "funFact": "The Ericsson France R&D center opened its doors in 2020."
+    },
+    {
+      "text": "⭐ BONUS — How many floors are open in Ericsson Massy?",
+      "round": "bonus", "order": 4,
+      "choices": ["6 + RDC", "5 + RDC", "4 + RDC", "3 + RDC"],
+      "correctIndex": 2,
+      "funFact": "The Ericsson Massy building has 4 floors plus the ground floor (RDC) open."
     }
   ]
 }

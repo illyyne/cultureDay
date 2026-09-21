@@ -1,7 +1,7 @@
 {
   "questions": [
     {
-      "text": "In which country can you find this famous statue?",
+      "text": "In which city can you find this famous statue?",
       "round": "photos", "order": 1,
       "choices": ["Argentina", "Portugal", "Colombia", "Brazil"],
       "correctIndex": 3,
@@ -19,7 +19,7 @@
       "funFact": "The Darvaza gas crater has been burning continuously since 1971."
     },
     {
-      "text": "Which country is home to this ancient temple?",
+      "text": "Which country and city is home to this ancient temple?",
       "round": "photos", "order": 3,
       "choices": ["Thailand", "Cambodia", "Indonesia", "Myanmar"],
       "correctIndex": 2,
@@ -28,7 +28,7 @@
       "funFact": "Borobudur is the world's largest Buddhist temple, built in the 9th century in Indonesia, Constructed of gray andesite-like stone,[1] the temple consists of nine stacked platforms, six square and three circular, topped by a central dome. It is decorated with 2,672 relief panels and originally 504 Buddha statues."
     },
     {
-      "text": "This iconic mountain is a symbol of which country?",
+      "text": "This iconic mountain is a symbol of which country/ choose the city?",
       "round": "photos", "order": 4,
       "choices": ["South Korea", "Japan", "China", "Nepal"],
       "correctIndex": 1,

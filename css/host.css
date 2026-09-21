@@ -94,24 +94,27 @@ body {
 /* Question */
 .question-header {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
   width: 100%;
   max-width: 1200px;
   margin-bottom: var(--space-4);
+  gap: var(--space-2);
 }
 
 .round-badge {
   font-family: var(--font-display);
-  font-size: var(--text-lg);
-  padding: var(--space-2) var(--space-4);
+  font-size: var(--text-2xl);
+  padding: var(--space-2) var(--space-6);
   border-radius: var(--radius-full);
   background: var(--color-primary);
   color: white;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
 .question-counter {
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   color: var(--color-text-secondary);
 }
 

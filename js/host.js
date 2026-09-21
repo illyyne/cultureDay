@@ -126,8 +126,16 @@
 
     questions = [];
     detectedRounds.forEach(r => {
-      byRound[r].sort((a, b) => (a.order || 0) - (b.order || 0));
-      questions.push(...byRound[r]);
+      const roundQs = byRound[r];
+      if (r !== 'bonus') {
+        for (let i = roundQs.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [roundQs[i], roundQs[j]] = [roundQs[j], roundQs[i]];
+        }
+      } else {
+        roundQs.sort((a, b) => (a.order || 0) - (b.order || 0));
+      }
+      questions.push(...roundQs);
     });
     return questions.map(q => q.id);
   }
@@ -362,6 +370,8 @@
 
     showScreen('screen-reveal');
 
+    // Round badge
+    $('reveal-round-badge').textContent = (ROUND_ICONS[q.round] || '') + ' ' + (ROUND_LABELS[q.round] || q.round);
     // Double points
     $('reveal-double-badge').style.display = isDouble ? 'block' : 'none';
     $('reveal-q-text').textContent = q.text;
@@ -445,19 +455,8 @@
     nextBtn.textContent = isLast ? 'Show Final Results 🏆' : 'Next Question →';
     nextBtn.onclick = advanceToNext;
 
-    // Auto-advance countdown (20 seconds)
     const countdownEl = $('reveal-countdown');
-    let revealSecondsLeft = 20;
-    if (countdownEl) {
-      countdownEl.textContent = revealSecondsLeft + 's';
-      countdownEl.style.display = 'inline-block';
-    }
-    revealCountdownInterval = setInterval(() => {
-      revealSecondsLeft--;
-      if (countdownEl) countdownEl.textContent = revealSecondsLeft + 's';
-      if (revealSecondsLeft <= 0) clearInterval(revealCountdownInterval);
-    }, 1000);
-    revealTimeout = setTimeout(advanceToNext, 20000);
+    if (countdownEl) countdownEl.style.display = 'none';
   }
 
   function showStreakCallouts(streaks) {
