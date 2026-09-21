@@ -124,19 +124,23 @@
       return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
     });
 
-    questions = [];
+    const mainQs = [];
+    const bonusQs = [];
     detectedRounds.forEach(r => {
-      const roundQs = byRound[r];
-      if (r !== 'bonus') {
-        for (let i = roundQs.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [roundQs[i], roundQs[j]] = [roundQs[j], roundQs[i]];
-        }
+      if (r === 'bonus') {
+        byRound[r].sort((a, b) => (a.order || 0) - (b.order || 0));
+        bonusQs.push(...byRound[r]);
       } else {
-        roundQs.sort((a, b) => (a.order || 0) - (b.order || 0));
+        mainQs.push(...byRound[r]);
       }
-      questions.push(...roundQs);
     });
+
+    for (let i = mainQs.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [mainQs[i], mainQs[j]] = [mainQs[j], mainQs[i]];
+    }
+
+    questions = [...mainQs, ...bonusQs];
     return questions.map(q => q.id);
   }
 
@@ -152,7 +156,7 @@
     }
     await gameRef.update({ questionIds, timerDuration, currentQuestionIndex: 0 });
     currentQIndex = 0;
-    showRoundInterstitial(questions[0].round, () => transitionTo(STATES.QUESTION));
+    transitionTo(STATES.QUESTION);
   });
 
   // === STATE MACHINE (simplified: QUESTION → REVEAL → next QUESTION → FINISHED) ===
@@ -441,11 +445,11 @@
       } else {
         const nextQ = questions[currentQIndex + 1];
         const currentQ = questions[currentQIndex];
-        const isNewRound = nextQ && nextQ.round !== currentQ.round;
+        const enteringBonus = nextQ && nextQ.round === 'bonus' && currentQ.round !== 'bonus';
         currentQIndex++;
         gameRef.update({ currentQuestionIndex: currentQIndex });
-        if (isNewRound) {
-          showRoundInterstitial(nextQ.round, () => transitionTo(STATES.QUESTION));
+        if (enteringBonus) {
+          showRoundInterstitial('bonus', () => transitionTo(STATES.QUESTION));
         } else {
           transitionTo(STATES.QUESTION);
         }
