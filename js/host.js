@@ -77,11 +77,19 @@
     snap.forEach(child => { all.push({ id: child.key, ...child.val() }); });
 
     const byRound = {};
-    ROUND_ORDER.forEach(r => { byRound[r] = []; });
-    all.forEach(q => { if (byRound[q.round]) byRound[q.round].push(q); });
+    all.forEach(q => {
+      if (!byRound[q.round]) byRound[q.round] = [];
+      byRound[q.round].push(q);
+    });
+
+    const detectedRounds = Object.keys(byRound).sort((a, b) => {
+      const ai = ROUND_ORDER.indexOf(a);
+      const bi = ROUND_ORDER.indexOf(b);
+      return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+    });
 
     questions = [];
-    ROUND_ORDER.forEach(r => {
+    detectedRounds.forEach(r => {
       byRound[r].sort((a, b) => (a.order || 0) - (b.order || 0));
       questions.push(...byRound[r]);
     });

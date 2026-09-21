@@ -14,7 +14,49 @@
       snap.forEach(child => {
         allQuestions[child.key] = child.val();
       });
+      rebuildRoundTabs();
       renderQuestions();
+    });
+  }
+
+  function rebuildRoundTabs() {
+    const rounds = [...new Set(Object.values(allQuestions).map(q => q.round))];
+    rounds.sort((a, b) => {
+      const ai = ROUND_ORDER.indexOf(a);
+      const bi = ROUND_ORDER.indexOf(b);
+      return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+    });
+
+    if (activeRound !== 'all' && !rounds.includes(activeRound)) {
+      activeRound = 'all';
+    }
+
+    const container = document.querySelector('.round-tabs');
+    container.innerHTML = '';
+
+    const allBtn = document.createElement('button');
+    allBtn.className = 'round-tab' + (activeRound === 'all' ? ' active' : '');
+    allBtn.dataset.round = 'all';
+    allBtn.textContent = 'All';
+    container.appendChild(allBtn);
+
+    rounds.forEach(r => {
+      const btn = document.createElement('button');
+      const icon = ROUND_ICONS[r] || '📋';
+      const label = ROUND_LABELS[r] || r.charAt(0).toUpperCase() + r.slice(1);
+      btn.className = 'round-tab' + (activeRound === r ? ' active' : '');
+      btn.dataset.round = r;
+      btn.textContent = icon + ' ' + label;
+      container.appendChild(btn);
+    });
+
+    container.querySelectorAll('.round-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        container.querySelectorAll('.round-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeRound = tab.dataset.round;
+        renderQuestions();
+      });
     });
   }
 
@@ -65,15 +107,7 @@
     }).join('');
   }
 
-  // === ROUND TABS ===
-  document.querySelectorAll('.round-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      document.querySelectorAll('.round-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      activeRound = tab.dataset.round;
-      renderQuestions();
-    });
-  });
+  // Round tabs are built dynamically in rebuildRoundTabs()
 
   // === MODAL ===
   function openModal(questionId) {

@@ -12,6 +12,7 @@ const ROUNDS = {
   FOOD: 'food',
   TRADITIONS: 'traditions',
   CLOTHES: 'clothes',
+  EXPRESSIONS: 'expressions',
   BONUS: 'bonus'
 };
 
@@ -20,6 +21,7 @@ const ROUND_LABELS = {
   food: 'Food & Cuisine',
   traditions: 'Traditions & Festivals',
   clothes: 'Clothes & Fashion',
+  expressions: 'French Expressions',
   bonus: 'Bonus'
 };
 
@@ -28,10 +30,11 @@ const ROUND_ICONS = {
   food: '🍜',
   traditions: '🎭',
   clothes: '👘',
+  expressions: '🇫🇷',
   bonus: '⭐'
 };
 
-const ROUND_ORDER = ['photos', 'food', 'traditions', 'clothes', 'bonus'];
+const ROUND_ORDER = ['photos', 'food', 'traditions', 'clothes', 'expressions', 'bonus'];
 
 const MAP_ROUNDS = ['photos', 'bonus'];
 

@@ -1,0 +1,74 @@
+{
+  "questions": [
+    {
+      "text": "\"Poule mouillée\" (wet chicken) really means someone is:",
+      "round": "expressions", "order": 1,
+      "choices": ["Clean", "Dirty", "A coward", "Happy"],
+      "correctIndex": 2,
+      "funFact": "In French, calling someone a \"poule mouillée\" means they're a scaredy-cat! The image is of a chicken that got rained on and looks miserable and helpless."
+    },
+    {
+      "text": "What does \"Haut comme trois pommes\" (high as 3 apples) describe?",
+      "round": "expressions", "order": 2,
+      "choices": ["A tall person", "A short person", "A fat person", "A thin person"],
+      "correctIndex": 1,
+      "funFact": "This expression is used affectionately to describe someone very short, especially children. Three stacked apples is about 30 cm!"
+    },
+    {
+      "text": "If someone \"tombe dans les pommes\" (falls in the apples), they are:",
+      "round": "expressions", "order": 3,
+      "choices": ["Eating fruit", "Picking apples", "Fainting/passing out", "Running away"],
+      "correctIndex": 2,
+      "funFact": "This quirky expression may come from a letter by George Sand where she wrote about being \"dans les pommes cuites\" (in the cooked apples) meaning exhausted."
+    },
+    {
+      "text": "What does \"Les doigts dans le nez\" (fingers in the nose) mean?",
+      "round": "expressions", "order": 4,
+      "choices": ["Something is hard to do", "Something is easy to do", "Something is impossible", "Something is confusing"],
+      "correctIndex": 1,
+      "funFact": "The idea is that the task is so easy you could do it with your fingers in your nose — meaning you don't even need your hands! Similar to the English \"with one hand tied behind my back.\""
+    },
+    {
+      "text": "What does \"Avoir le cafard\" (have the cockroach) mean?",
+      "round": "expressions", "order": 5,
+      "choices": ["To be happy", "To be angry", "To be sad", "To be scared"],
+      "correctIndex": 2,
+      "funFact": "This expression was popularized by the poet Charles Baudelaire. The cockroach symbolizes the dark, gloomy feeling of melancholy crawling inside you."
+    },
+    {
+      "text": "\"Tiré par les cheveux\" (pulled by the hair) really means something is:",
+      "round": "expressions", "order": 6,
+      "choices": ["Real and true", "Far-fetched or hard to believe", "Beautiful", "Interesting"],
+      "correctIndex": 1,
+      "funFact": "Just like pulling someone by the hair is a stretch, this expression means an explanation or story has been stretched too far to be believable!"
+    },
+    {
+      "text": "\"Avoir la banane\" (to have the banana) really means:",
+      "round": "expressions", "order": 7,
+      "choices": ["To eat fruit", "To feel happy and smile", "To cook food", "To go to the store"],
+      "correctIndex": 1,
+      "funFact": "The banana shape resembles a big grin! When French people say someone \"has the banana,\" it means they have a huge smile on their face."
+    },
+    {
+      "text": "\"Quand les poules auront des dents\" (when chickens will have teeth) really means:",
+      "round": "expressions", "order": 8,
+      "choices": ["Someday soon", "Next week", "Never", "Every day"],
+      "correctIndex": 2,
+      "funFact": "Since chickens will never grow teeth, this is the French equivalent of \"when pigs fly!\" It means something will never happen."
+    },
+    {
+      "text": "\"Il n'y a pas de quoi fouetter un chat\" (no reason to whip a cat) really means:",
+      "round": "expressions", "order": 9,
+      "choices": ["You should be angry", "This is nothing to worry about", "Cats are bad", "You should punish someone"],
+      "correctIndex": 1,
+      "funFact": "This expression dates back to the 17th century. It means the situation is so minor that it's not even worth punishing a cat for — in other words, it's no big deal!"
+    },
+    {
+      "text": "\"Avoir un poil dans la main\" (to have a hair in the hand) really means:",
+      "round": "expressions", "order": 10,
+      "choices": ["To work very hard", "To be lazy", "To be strong", "To be dirty"],
+      "correctIndex": 1,
+      "funFact": "The idea is that the person is so lazy that a hair has had time to grow in the palm of their hand because they never use it for work!"
+    }
+  ]
+}

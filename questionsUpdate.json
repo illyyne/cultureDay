@@ -30,7 +30,7 @@
     {
       "text": "This iconic mountain is a symbol of which country?",
       "round": "photos", "order": 4,
-      "choices": ["South Korea", "Japan", "China", "Nepal"],
+      "choices": ["South Korea", "Japan", "China", "France"],
       "correctIndex": 1,
       "mediaType": "photo", "mediaUrl": "assets/images/places/mont-fuji.jpg",
       "location": { "city": "Fujinomiya", "country": "Japan", "lat": 35.3606, "lng": 138.7274 },
@@ -57,7 +57,7 @@
     {
       "text": "This glass noodle stir-fry dish called Japchae is from which country?",
       "round": "food", "order": 2,
-      "choices": ["Japan", "Thailand", "South Korea", "Philippines"],
+      "choices": ["Japan", "Italy", "South Korea", "Philippines"],
       "correctIndex": 2,
       "mediaType": "photo", "mediaUrl": "assets/images/dishes/Japchae-Korean.webp",
       "location": { "city": "Seoul", "country": "South Korea", "lat": 37.5665, "lng": 126.978 },
@@ -75,7 +75,7 @@
     {
       "text": "This tagine dish with chicken and olives is from which country?",
       "round": "food", "order": 4,
-      "choices": ["Algeria", "Morocco", "Tunisia", "Libya"],
+      "choices": ["Ghana", "Morocco", "Tunisia", "Egypt"],
       "correctIndex": 1,
 
       "mediaType": "photo", "mediaUrl": "assets/images/dishes/TajinePouletMAroc.png",
@@ -85,7 +85,7 @@
     {
       "text": "This communal hot pot is a traditional way of eating in which country?",
       "round": "food", "order": 5,
-      "choices": ["Japan", "Vietnam", "China", "Mongolia"],
+      "choices": ["Nepal", "Thailand", "China", "Mongolia"],
       "correctIndex": 2,
       "mediaType": "photo", "mediaUrl": "assets/images/dishes/hotpotChina.jpg",
       "location": { "city": "Chongqing", "country": "China", "lat": 29.4316, "lng": 106.9123 },
@@ -103,7 +103,7 @@
     {
       "text": "Diwali, the Festival of Lights, originated in which country?",
       "round": "traditions", "order": 2,
-      "choices": ["India", "Thailand", "Nepal", "Sri Lanka"],
+      "choices": ["India", "Thailand", "Nepal", "China"],
       "correctIndex": 0,
       "mediaType": "photo", "mediaUrl": "assets/images/culture/Diwali.jpg",
       "location": { "city": "Varanasi", "country": "India", "lat": 25.3176, "lng": 83.0068 },
@@ -131,7 +131,7 @@
     {
       "text": "The Lantern Festival marks the end of a New Year in which country?",
       "round": "traditions", "order": 5,
-      "choices": ["Japan", "Vietnam", "South Korea", "China"],
+      "choices": ["Japan", "India", "Thailand", "China"],
       "correctIndex": 3,
       "mediaType": "photo", "mediaUrl": "assets/images/culture/Lantern_Festival.jpg",
       "location": { "city": "Beijing", "country": "China", "lat": 39.9042, "lng": 116.4074 },
@@ -158,7 +158,7 @@
     {
       "text": "The sari is a traditional draped garment from which country?",
       "round": "clothes", "order": 3,
-      "choices": ["Bangladesh", "India", "Pakistan", "Sri Lanka"],
+      "choices": ["Bangladesh", "India", "Nepal", "Thailand"],
       "correctIndex": 1,
 
       "mediaType": "photo", "mediaUrl": "assets/images/clothes/sar.jpeg",
