@@ -254,30 +254,30 @@
       "funFact": "Amr Diab is Egyptian, often called the 'Father of Mediterranean Music'. 'Habibi Ya Nour El Ain' (1996) became one of the best-selling Arabic songs of all time."
     },
     {
-      "text": "⭐ BONUS — Where is Ericsson's Headquarters? Drop a pin!",
-      "round": "bonus", "order": 1,
+      "text": "⚡ SCORE DOUBLE — Where is Ericsson's Headquarters? Drop a pin!",
+      "round": "double", "order": 1,
       "choices": [], "correctIndex": 0,
       "mediaType": "photo", "mediaUrl": "assets/images/ericsson.jpg",
       "location": { "city": "Kista", "country": "Sweden", "lat": 59.4049, "lng": 17.9554 },
       "funFact": "Ericsson was founded in 1876 and is headquartered in Kista, Stockholm."
     },
     {
-      "text": "⭐ BONUS — Since what year has Ericsson been established in France?",
-      "round": "bonus", "order": 2,
+      "text": "⚡ SCORE DOUBLE — Since what year has Ericsson been established in France?",
+      "round": "double", "order": 2,
       "choices": ["1896", "1909", "1925"],
       "correctIndex": 1,
       "funFact": "Following the fire at the Gutenberg telephone station in Paris in 1908, Ericsson established its presence in France in 1909."
     },
     {
-      "text": "⭐ BONUS — When did the Ericsson France R&D center open?",
-      "round": "bonus", "order": 3,
+      "text": "⚡ SCORE DOUBLE — When did the Ericsson France R&D center open?",
+      "round": "double", "order": 3,
       "choices": ["2015", "2020", "2024"],
       "correctIndex": 1,
       "funFact": "The Ericsson France R&D center opened its doors in 2020."
     },
     {
-      "text": "⭐ BONUS — How many floors are open in Ericsson Massy?",
-      "round": "bonus", "order": 4,
+      "text": "⚡ SCORE DOUBLE — How many floors are open in Ericsson Massy?",
+      "round": "double", "order": 4,
       "choices": ["6 + RDC", "5 + RDC", "4 + RDC", "3 + RDC"],
       "correctIndex": 2,
       "funFact": "The Ericsson Massy building has 4 floors plus the ground floor (RDC) open."

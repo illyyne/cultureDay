@@ -127,7 +127,7 @@
     const mainQs = [];
     const bonusQs = [];
     detectedRounds.forEach(r => {
-      if (r === 'bonus') {
+      if (r === 'double') {
         byRound[r].sort((a, b) => (a.order || 0) - (b.order || 0));
         bonusQs.push(...byRound[r]);
       } else {
@@ -445,11 +445,11 @@
       } else {
         const nextQ = questions[currentQIndex + 1];
         const currentQ = questions[currentQIndex];
-        const enteringBonus = nextQ && nextQ.round === 'bonus' && currentQ.round !== 'bonus';
+        const enteringBonus = nextQ && nextQ.round === 'double' && currentQ.round !== 'double';
         currentQIndex++;
         gameRef.update({ currentQuestionIndex: currentQIndex });
         if (enteringBonus) {
-          showRoundInterstitial('bonus', () => transitionTo(STATES.QUESTION));
+          showRoundInterstitial('double', () => transitionTo(STATES.QUESTION));
         } else {
           transitionTo(STATES.QUESTION);
         }

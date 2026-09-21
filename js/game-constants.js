@@ -15,7 +15,7 @@ const ROUNDS = {
   SPORTS: 'sports',
   MUSIC: 'music',
   EXPRESSIONS: 'expressions',
-  BONUS: 'bonus'
+  DOUBLE: 'double'
 };
 
 const ROUND_LABELS = {
@@ -26,7 +26,7 @@ const ROUND_LABELS = {
   sports: 'Football World Cup',
   music: 'Singers & Music',
   expressions: 'French Expressions',
-  bonus: 'Bonus'
+  double: 'Score Double'
 };
 
 const ROUND_ICONS = {
@@ -37,14 +37,15 @@ const ROUND_ICONS = {
   sports: '⚽',
   music: '🎤',
   expressions: '🇫🇷',
-  bonus: '⭐'
+  double: '⚡'
 };
 
-const ROUND_ORDER = ['photos', 'food', 'traditions', 'clothes', 'sports', 'music', 'expressions', 'bonus'];
+const ROUND_ORDER = ['photos', 'food', 'traditions', 'clothes', 'sports', 'music', 'expressions', 'double'];
 
 const QUESTIONS_PER_ROUND = 5;
 
 function isMapQuestion(q) {
+  if (q && q.round === 'photos' && q.location && q.location.lat) return true;
   return q && (!q.choices || q.choices.length === 0) && q.location && q.location.lat;
 }
 
