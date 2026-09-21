@@ -96,6 +96,42 @@
     return questions.map(q => q.id);
   }
 
+  // === LOAD QUIZ FILE ===
+  $('btn-load-quiz').addEventListener('click', () => $('quiz-file-input').click());
+
+  $('quiz-file-input').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      const data = JSON.parse(text);
+      const qs = data.questions || data;
+
+      if (!Array.isArray(qs) || qs.length === 0) {
+        return alert('Invalid file. Expected { "questions": [...] }');
+      }
+
+      const batch = {};
+      for (const q of qs) {
+        const key = db.ref('questions').push().key;
+        q.createdAt = firebase.database.ServerValue.TIMESTAMP;
+        q.updatedAt = firebase.database.ServerValue.TIMESTAMP;
+        batch[key] = q;
+      }
+      await db.ref('questions').set(batch);
+
+      const rounds = [...new Set(qs.map(q => q.round))];
+      const roundNames = rounds.map(r => (ROUND_ICONS[r] || '') + ' ' + (ROUND_LABELS[r] || r)).join(', ');
+      $('session-status').textContent = qs.length + ' questions loaded (' + roundNames + ')';
+      $('session-status').style.color = 'var(--color-correct, #26890C)';
+    } catch (err) {
+      alert('Failed to load quiz: ' + err.message);
+    }
+
+    e.target.value = '';
+  });
+
   // === START ===
   $('btn-start').addEventListener('click', async () => {
     $('btn-start').disabled = true;
@@ -484,7 +520,8 @@
   }
 
   function showRoundInterstitial(round, callback) {
-    const roundIdx = ROUND_ORDER.indexOf(round) + 1;
+    const detectedRounds = [...new Set(questions.map(q => q.round))];
+    const roundIdx = detectedRounds.indexOf(round) + 1;
     $('round-number').textContent = 'Round ' + roundIdx;
     $('round-name').textContent = (ROUND_ICONS[round] || '') + ' ' + (ROUND_LABELS[round] || round);
     const el = $('round-interstitial');

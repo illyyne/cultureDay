@@ -24,6 +24,11 @@
     </div>
     <div id="player-count" class="player-count">0 players joined</div>
     <div id="player-chips" class="lobby-players"></div>
+    <div class="lobby-session">
+      <button id="btn-load-quiz" class="btn btn-secondary" style="font-size:var(--text-sm);padding:var(--space-2) var(--space-4)">📂 Load Quiz File</button>
+      <input type="file" id="quiz-file-input" style="display:none" accept=".json">
+      <span id="session-status" style="color:var(--color-text-secondary);font-size:var(--text-sm);margin-left:var(--space-3)">No quiz loaded</span>
+    </div>
     <div class="lobby-controls">
       <label style="color:var(--color-text-secondary)">
         Timer:
